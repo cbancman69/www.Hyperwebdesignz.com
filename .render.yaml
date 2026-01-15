@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: futuristic-portfolio
+    env: node
+    plan: free
+    buildCommand: "npm install"
+    startCommand: "npm start"
+    envVars:
+      - key: ADMIN_SECRET
+        value: "change-this-secret"

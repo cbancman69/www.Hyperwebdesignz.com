@@ -1,0 +1,29 @@
+{
+  "testimonials": [
+    {
+      "id": "t-1768481007402-0",
+      "name": "A. Reynolds",
+      "title": "Head of Marketing",
+      "body": "",
+      "src": "",
+      "created": 1768481007402
+    },
+    {
+      "id": "t-1768481007402-1",
+      "name": "S. Martinez",
+      "title": "Product Lead",
+      "body": "",
+      "src": "",
+      "created": 1768481007401
+    },
+    {
+      "id": "t-1768481007402-2",
+      "name": "J. Lee",
+      "title": "E‑commerce Manager",
+      "body": "",
+      "src": "",
+      "created": 1768481007400
+    }
+  ],
+  "messages": []
+}

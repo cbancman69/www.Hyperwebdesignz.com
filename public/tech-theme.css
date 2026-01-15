@@ -1,0 +1,101 @@
+/* Tech theme enhancements: neon accents, animated borders, sharper hero */
+:root{--tech-accent:#00e0ff;--tech-accent-2:#6af0ff;--glass-strong:rgba(255,255,255,0.04)}
+
+/* Hero enhancements */
+.hero{padding:56px 24px 36px;text-align:center;position:relative;overflow:visible}
+.hero h1{font-size:2.6rem;line-height:1.02;color:var(--tech-accent);text-shadow:0 8px 32px rgba(0,224,255,0.08);letter-spacing:0.6px}
+.hero p{max-width:880px;margin:10px auto 0;color:#bfe;opacity:0.95}
+
+/* subtle animated underline */
+.hero h1::after{content:'';display:block;height:4px;width:160px;margin:18px auto 0;border-radius:999px;background:linear-gradient(90deg,var(--tech-accent),var(--tech-accent-2));box-shadow:0 8px 34px rgba(0,224,255,0.06);transform-origin:left center;animation:line-slide 3.8s linear infinite}
+@keyframes line-slide{0%{transform:scaleX(0)}50%{transform:scaleX(1)}100%{transform:scaleX(0)}}
+
+/* Card neon ring and tech grid */
+.home-cards .card{border-radius:14px;position:relative;overflow:hidden}
+.home-cards .card::after{content:'';position:absolute;inset:0;border-radius:14px;padding:2px;background:linear-gradient(90deg,transparent,rgba(0,224,255,0.06),transparent);-webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);pointer-events:none}
+.home-cards .card::before{content:'';position:absolute;left:-40%;top:-40%;width:200%;height:200%;background:radial-gradient(circle at 10% 10%, rgba(0,224,255,0.06), transparent 12%), radial-gradient(circle at 90% 90%, rgba(106,240,255,0.03), transparent 14%);transform:translateZ(0);transition:opacity .4s ease;opacity:0}
+.home-cards .card:hover::before{opacity:1}
+
+/* strong CTA button */
+.btn{border:0;background:linear-gradient(90deg,var(--tech-accent),var(--tech-accent-2));color:#001;padding:10px 16px;border-radius:12px;font-weight:600;box-shadow:0 8px 30px rgba(0,224,255,0.08);transition:transform .18s ease,box-shadow .18s ease}
+.btn:hover{transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,224,255,0.12)}
+
+/* small badges and micro-animations */
+.card-media{position:relative}
+.card-media::after{display:none !important}
+
+/* Hide per-card badges — show only section titles */
+.card-badge{display:none !important}
+
+/* make preview image pop */
+.preview-img img{border-radius:10px;box-shadow:0 22px 60px rgba(0,16,20,0.6), 0 0 36px rgba(0,224,255,0.08)}
+
+/* Card color accents and stronger hover glow */
+.home-cards .card{position:relative;overflow:hidden;border-radius:14px;transition:transform .28s ease, box-shadow .28s ease}
+.home-cards .card::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,0.012),transparent)}
+.home-cards .card:hover{transform:translateY(-12px) scale(1.01);box-shadow:0 30px 80px rgba(0,0,0,0.6), 0 0 40px rgba(0,212,255,0.08)}
+
+/* Per-card accent rings */
+.home-cards .card:nth-child(1) { border:1px solid rgba(0,224,255,0.12); }
+.home-cards .card:nth-child(1)::before{ content:''; position:absolute; inset:-2px; border-radius:16px; pointer-events:none; box-shadow:0 0 40px rgba(0,224,255,0.06); mix-blend-mode:screen; }
+.home-cards .card:nth-child(2) { border:1px solid rgba(106,75,255,0.10); }
+.home-cards .card:nth-child(2)::before{ content:''; position:absolute; inset:-2px; border-radius:16px; pointer-events:none; box-shadow:0 0 36px rgba(106,75,255,0.06); mix-blend-mode:screen; }
+.home-cards .card:nth-child(3) { border:1px solid rgba(0,200,170,0.10); }
+.home-cards .card:nth-child(3)::before{ content:''; position:absolute; inset:-2px; border-radius:16px; pointer-events:none; box-shadow:0 0 36px rgba(0,200,170,0.06); mix-blend-mode:screen; }
+
+/* subtle tilt inner highlight */
+.home-cards .card .card-media::after{ content:''; position:absolute; left:0; right:0; top:0; height:40%; background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00)); pointer-events:none }
+
+/* responsive tweaks */
+@media (max-width:720px){
+  .hero h1{font-size:1.8rem}
+  .preview-img img{width:100%;height:auto}
+}
+
+/* Tech background layers: particles, subtle scanlines and slow parallax */
+body.bg::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  /* layered backgrounds: soft particle glows, subtle vignette, and scanlines */
+  background-image:
+    radial-gradient(circle at 8% 18%, rgba(0,224,255,0.10), transparent 10%),
+    radial-gradient(circle at 82% 78%, rgba(106,240,255,0.06), transparent 12%),
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0 1px, transparent 1px 6px);
+  background-size: 700px 700px, 900px 900px, 100% 4px;
+  mix-blend-mode: screen;
+  opacity:0.10;
+  transform:translateZ(0);
+  animation: techParticlesMove 30s linear infinite, techScanPulse 6s ease-in-out infinite;
+}
+
+@keyframes techParticlesMove{
+  0%{background-position:0% 0%, 0% 0%, 0 0}
+  50%{background-position:18% 8%, -12% 14%, 0 2px}
+  100%{background-position:0% 0%, 0% 0%, 0 0}
+}
+
+@keyframes techScanPulse{
+  0%{opacity:0.08}
+  50%{opacity:0.12}
+  100%{opacity:0.08}
+}
+
+/* Optional faint dotted noise for texture on large screens */
+@media (min-width:900px){
+  body.bg::after{
+    content:'';
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.02) 1px, transparent 2px);
+    background-size: 6px 6px;
+    mix-blend-mode: overlay;
+    opacity:0.035;
+    transform:translateZ(0);
+    animation: techNoise 8s steps(2,end) infinite;
+  }
+}
+
+@keyframes techNoise{ 0%{opacity:0.02}50%{opacity:0.05}100%{opacity:0.02} }

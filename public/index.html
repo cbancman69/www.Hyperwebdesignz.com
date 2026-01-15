@@ -1,0 +1,320 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Futuristic Portfolio  Single Page</title>
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="Futuristic Portfolio — Web Developer" />
+  <meta property="og:description" content="AI-assisted design + handcrafted code. Portfolio and sample projects." />
+  <meta property="og:image" content="/assets/preview-ride.png" />
+  <meta property="og:url" content="http://localhost:4000/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Futuristic Portfolio — Web Developer" />
+  <meta name="twitter:description" content="AI-assisted design + handcrafted code. Portfolio and sample projects." />
+  <meta name="twitter:image" content="/assets/preview-ride.png" />
+  <link rel="stylesheet" href="/assets/styles.css" />
+  <link rel="stylesheet" href="/assets/home-cards.css" />
+  <link rel="stylesheet" href="/assets/tech-theme.css" />
+  <link rel="stylesheet" href="/assets/center-nav.css" />        
+  <link rel="stylesheet" href="/assets/pricing.css" />
+  <link rel="stylesheet" href="/assets/bg-overlay.css" />
+  <meta name="robots" content="noindex" />
+</head>
+<body class="bg">
+  <a href="#main" class="skip-link">Skip to content</a>
+  <!-- decorative floating orbs (futuristic accents) -->
+  <div class="floating-orb orb-1" aria-hidden="true"></div>
+  <div class="floating-orb orb-2" aria-hidden="true"></div>
+  <div class="floating-orb orb-3" aria-hidden="true"></div>
+  <div class="floating-orb orb-4" aria-hidden="true"></div>
+  <div class="lite-light" aria-hidden="true"></div>
+  <div id="app">
+    <header class="site-header">
+      <div class="brand" data-view-link="home" style="cursor:pointer">
+        <div class="logo-text">WELCOME</div>
+      </div>
+      <div class="header-actions">
+      </div>
+    </header>
+
+    <main>
+      <section id="home" class="view active-view">
+        <h1>Hyper Web Designz</h1>
+        <div class="hero-centered">
+            <div class="hero-nav" role="navigation">
+            <button class="btn nav-btn" data-view-link="home">Home</button>
+            <button class="btn nav-btn" data-view-link="about">About</button>
+            <div class="nav-item nav-contact" style="display:inline-block;position:relative">
+              <button class="btn nav-item-toggle" aria-haspopup="true" aria-expanded="false">Contact</button>
+              <div class="nav-dropdown" aria-hidden="true">
+                <a class="nav-link" href="mailto:cbancman@gmail.com">cbancman@gmail.com</a>
+                <a class="nav-link" href="tel:+17852210870">785-221-0870</a>
+              </div>
+            </div>
+            <div class="nav-item" style="display:inline-block;position:relative">
+              <button class="btn nav-item-toggle" aria-haspopup="true" aria-expanded="false">App</button>
+              <div class="nav-dropdown" aria-hidden="true">
+                <div style="padding:8px 12px;border-bottom:1px solid rgba(255,255,255,0.02)">
+                  <strong style="display:block;color:var(--muted)">Profiles</strong>
+                  <a class="nav-link" href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a>
+                  <a class="nav-link" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                  <a class="nav-link" href="https://twitter.com/" target="_blank" rel="noopener noreferrer">X</a>
+                </div>
+                <div style="padding:8px 12px">
+                  <strong style="display:block;color:var(--muted)">Tools & Hosts</strong>
+                  <a class="nav-link" href="https://www.figma.com/" target="_blank" rel="noopener noreferrer">Figma</a>
+                  <a class="nav-link" href="https://nodejs.org/" target="_blank" rel="noopener noreferrer">Node.js</a>
+                  <a class="nav-link" href="https://expressjs.com/" target="_blank" rel="noopener noreferrer">Express</a>
+                  <a class="nav-link" href="https://vercel.com/" target="_blank" rel="noopener noreferrer">Vercel</a>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-ghost resume-btn" type="button">Resume</button>
+          </div>
+        </div>
+        <div class="home-preview">
+          <h3>Featured Work</h3>
+          <div class="grid home-cards">
+            <div class="card" data-title="Promotional Landing" data-img="/assets/preview-ride.png">
+              <div class="card-badge"><span class="badge">Featured</span></div>
+              <div class="card-media"><img src="/assets/preview-ride.png" alt="Preview" onerror="this.style.display='none'"/></div>
+              <div class="card-body"><strong>Promotional Landing</strong><small>Landing & lead capture</small></div>
+            </div>
+            <div class="card" data-title="App Promo Site" data-img="/assets/preview-base44.png">
+              <div class="card-badge"><span class="badge">Featured</span></div>
+              <div class="card-media"><img src="/assets/preview-base44.png" alt="Preview" onerror="this.style.display='none'"/></div>
+              <div class="card-body"><strong>App Promo Site</strong><small>SPA, analytics</small></div>
+            </div>
+            <div class="card" data-title="E‑commerce Campaign" data-img="/assets/preview-shop.png">
+              <div class="card-badge"><span class="badge">Featured</span></div>
+              <div class="card-media"><img src="/assets/preview-shop.png" alt="Preview" onerror="this.style.display='none'"/></div>
+              <div class="card-body"><strong>E‑commerce Campaign</strong><small>Checkout & payments</small></div>
+            </div>
+          </div>
+        </div>
+        <!-- Portfolio (replaces Trusted By / Case Studies) -->
+        <div class="portfolio" style="margin-top:28px">
+          <h3>Portfolio</h3>
+          <p class="muted">Selected projects and previews — open local previews instead of external sites.</p>
+          <div class="grid home-cards" style="margin-top:12px">
+            <div class="card">
+              <div class="card-badge"><span class="badge">Portfolio</span></div>
+              <div class="card-media"><img src="/assets/preview-ride.png" alt="Promotional Landing" onerror="this.style.display='none'"/></div>
+              <div class="card-body"><strong>Promotional Landing</strong><small>Landing & lead capture</small></div>
+            </div>
+
+            <div class="card">
+              <div class="card-badge"><span class="badge">Portfolio</span></div>
+              <div class="card-media"><img src="/assets/preview-base44.png" alt="App Promo Site" onerror="this.style.display='none'"/></div>
+              <div class="card-body"><strong>App Promo Site</strong><small>SPA, analytics</small></div>
+            </div>
+
+            <div class="card">
+              <div class="card-badge"><span class="badge">Portfolio</span></div>
+              <div class="card-media"><img src="/assets/preview-shop.png" alt="E‑commerce Campaign" onerror="this.style.display='none'"/></div>
+              <div class="card-body"><strong>E‑commerce Campaign</strong><small>Checkout & payments</small></div>
+            </div>
+          </div>
+        </div>
+        <!-- Home pricing summary (company vs personal) -->
+        <div class="home-pricing" style="margin-top:28px">
+          <h3>Pricing Plans</h3>
+          <p class="muted">Quick comparison of our Company and Personal offerings.</p>
+          <div class="grid pricing-summary" style="margin-top:12px">
+            <div class="card">
+              <div class="card-media" style="display:none"><img src="/assets/preview-company.svg" alt="Company" onerror="this.style.display='none'"/></div>
+              <div class="card-body">
+                <h3>Company</h3>
+                <p class="muted">For teams and enterprises — custom integrations, SLAs, and multi-site support.</p>
+                <ul class="pricing-list">
+                  <li><strong>Starter</strong> — <span class="price" data-monthly="2500" data-annual="24000">$2,500</span> <small class="muted">(Landing + Contact)</small></li>
+                  <li><strong>Launch</strong> — <span class="price" data-monthly="4000" data-annual="38400">$4,000</span> <small class="muted">(Marketing + Analytics)</small></li>
+                  <li><strong>Business</strong> — <span class="price" data-monthly="6500" data-annual="62400">$6,500</span> <small class="muted">(Multi-page, CMS)</small></li>
+                  <li><strong>Enterprise</strong> — <span class="price" data-monthly="15000" data-annual="144000">Custom</span> <small class="muted">(Integrations & support)</small></li>
+                </ul>
+                <div style="margin-top:8px"><a class="btn btn-ghost" href="/s/pricing">Get a Quote</a></div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-media"><img src="/assets/preview-personal.svg" alt="Personal" onerror="this.style.display='none'"/></div>
+              <div class="card-body">
+                <h3>Personal</h3>
+                <p class="muted">For individuals — portfolios, blogs, and small shops.</p>
+                <ul class="pricing-list">
+                  <li><strong>First-timer Starter</strong> — <span class="price" data-monthly="199" data-annual="1990">$199</span> <small class="muted">(Special low-cost for first-time web developers)</small></li>
+                  <li><strong>Starter</strong> — <span class="price" data-monthly="450" data-annual="4320">$450</span> <small class="muted">(Single page)</small></li>
+                  <li><strong>Pro</strong> — <span class="price" data-monthly="950" data-annual="9120">$950</span> <small class="muted">(Portfolio + Blog)</small></li>
+                  <li><strong>Creator</strong> — <span class="price" data-monthly="1800" data-annual="17280">$1,800</span> <small class="muted">(Shop + Booking)</small></li>
+                </ul>
+                <div style="margin-top:8px"><a class="btn btn-ghost" href="/s/pricing">Start a Project</a></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-media"><img src="/assets/preview-ecom.svg" alt="E‑commerce" onerror="this.style.display='none'"/></div>
+              <div class="card-body">
+                <h3>E‑commerce</h3>
+                <p class="muted">Full e‑commerce builds and integrations — optimized for conversion.</p>
+                <ul class="pricing-list">
+                  <li><strong>Shop Starter</strong> — <span class="price" data-monthly="1200" data-annual="11520">$1,200</span> <small class="muted">(Small catalog + checkout)</small></li>
+                  <li><strong>Growth</strong> — <span class="price" data-monthly="2500" data-annual="24000">$2,500</span> <small class="muted">(Scaling catalog & SEO)</small></li>
+                  <li><strong>Store Pro</strong> — <span class="price" data-monthly="3500" data-annual="33600">$3,500</span> <small class="muted">(Inventory, payments, shipping)</small></li>
+                  <li><strong>Marketplace</strong> — <span class="price" data-monthly="8000" data-annual="76800">$8,000+</span> <small class="muted">(Multi-vendor & custom integrations)</small></li>
+                </ul>
+                <div style="margin-top:8px"><a class="btn btn-ghost" href="/s/pricing">Request Quote</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Testimonials -->
+        <div class="testimonials-section" style="margin-top:32px">
+          <h3>What Clients Say</h3>
+          <p class="muted">Real feedback from recent projects.</p>
+          <div id="testimonials" class="testimonials" aria-live="polite">
+            <!-- testimonials injected by script.js -->
+          </div>
+        </div>
+
+        <!-- Client logos strip -->
+        <div class="clients-strip" style="margin-top:22px">
+          <div class="clients-track">
+            <img src="/assets/company-acme.png" alt="Acme" onerror="this.style.display='none'"/>
+            <img src="/assets/company-base44.png" alt="Base44" onerror="this.style.display='none'"/>
+            <img src="/assets/company-ride.png" alt="RideWithRee" onerror="this.style.display='none'"/>
+            <img src="/assets/company-shop.png" alt="ShopCo" onerror="this.style.display='none'"/>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects" class="view">
+        <h2>Projects</h2>
+        <p>Examples and anonymized previews.</p>
+        <div class="grid">
+          <article class="card">
+            <div class="card-media"><img src="/assets/preview-ride.png" alt="Ride preview" onerror="this.style.display='none'"/></div>
+            <div class="card-body">
+              <h3>Promotional Landing (sample)</h3>
+              <p>Marketing landing with hero, lead capture and PDF export.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="pricing" class="view">
+        <h2>Pricing</h2>
+        <p>Choose the right plan — company and personal options.</p>
+        <div class="pricing-controls" style="margin:12px 0;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+          <div class="toggle-group" style="display:flex;gap:8px;align-items:center">
+            <label style="color:var(--muted);font-size:0.95rem">Billing</label>
+            <button id="billingMonthly" class="btn small active">Monthly</button>
+            <button id="billingAnnual" class="btn small">Annual</button>
+          </div>
+          <div style="margin-left:8px;color:var(--muted);font-size:0.95rem">Download brochures:</div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <a class="btn" href="/assets/brochure-company.pdf" download>Company Brochure</a>
+            <a class="btn" href="/assets/brochure-personal.pdf" download>Personal Brochure</a>
+          </div>
+        </div>
+          <div class="grid pricing-grid">
+          <div class="card pricing-card">
+            <div class="card-body">
+              <h3>Company Websites</h3>
+              <ul class="pricing-list">
+                <li><strong>Starter</strong> — <span class="price" data-monthly="2500" data-annual="24000">$2,500</span> <small class="muted">(Landing + Contact)</small></li>
+                <li><strong>Business</strong> — <span class="price" data-monthly="6500" data-annual="62400">$6,500</span> <small class="muted">(Multi-page, CMS)</small></li>
+                <li><strong>Enterprise</strong> — <span class="price" data-monthly="15000" data-annual="144000">$15,000+</span> <small class="muted">(Custom, integrations)</small></li>
+              </ul>
+              <div style="margin-top:12px"><button class="btn pricing-cta" data-plan="Company Quote" data-price="6500">Request Quote</button></div>
+            </div>
+          </div>
+
+          <div class="card pricing-card">
+            <div class="card-body">
+              <h3>Personal Websites</h3>
+              <ul class="pricing-list">
+                <li><strong>Portfolio</strong> — <span class="price" data-monthly="450" data-annual="4320">$450</span> <small class="muted">(Single page)</small></li>
+                <li><strong>Pro</strong> — <span class="price" data-monthly="950" data-annual="9120">$950</span> <small class="muted">(Portfolio + Blog)</small></li>
+                <li><strong>Creator</strong> — <span class="price" data-monthly="1800" data-annual="17280">$1,800</span> <small class="muted">(Shop + Booking)</small></li>
+              </ul>
+              <div style="margin-top:12px"><button class="btn pricing-cta" data-plan="Personal Start" data-price="950">Start Project</button></div>
+            </div>
+          </div>
+          </div>
+
+          <!-- simple price calculator -->
+          <div class="card pricing-card">
+            <div class="card-body">
+              <h3>Price Estimator</h3>
+              <div class="estimator">
+                <label><input type="checkbox" class="est-opt" data-cost="500"> SEO optimization (+$500)</label>
+                <label><input type="checkbox" class="est-opt" data-cost="800"> CMS integration (+$800)</label>
+                <label><input type="checkbox" class="est-opt" data-cost="1200"> E‑commerce (+$1,200)</label>
+                <div style="margin-top:8px">Estimated total: <strong id="estTotal">$0</strong></div>
+                <div style="margin-top:8px"><button class="btn" id="estApply">Use in Quote</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="view">
+        <h2>About</h2>
+        <p>I combine AI-assisted design with handcrafted code.</p>
+      </section>
+
+      <section id="contact" class="view">
+        <h2>Contact</h2>
+        <p>Email: <a href="mailto:cbancman@gmail.com">cbancman@gmail.com</a></p>
+        <form id="contactForm">
+          <input id="cname" placeholder="Your name" required />
+          <input id="cemail" type="email" placeholder="Email" required />
+          <textarea id="cmessage" placeholder="Message" required></textarea>
+          <div id="contactMsg" role="status" aria-live="polite" style="margin:8px 0;color:var(--teal)"></div>
+          <button class="btn" type="submit">Send</button>
+        </form>
+      </section>
+
+    </main>
+
+    <footer class="site-footer"> Portfolio  sample only</footer>
+  </div>
+
+  <div id="previewModal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+      <button class="modal-close"></button>
+      <div class="preview-inner">
+        <div class="preview-img"><img id="previewImg" src="" alt="preview"/></div>
+        <div class="preview-meta"><h3 id="previewTitle">Title</h3><pre id="previewCode" class="modal-code"></pre></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="resumeModal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <div></div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <a id="resumeDownload" class="btn" href="/assets/resume.pdf" download="resume.pdf">Download</a>
+          <button class="modal-close"></button>
+        </div>
+      </div>
+      <div class="resume-inner" style="width:100%;min-height:60vh;display:flex;align-items:stretch;">
+        <iframe id="resumeFrame" src="" style="width:100%;height:72vh;border:0;border-radius:8px;background:#000" title="Resume PDF"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- QR widget: appears after scrolling, hover to expand -->
+  <div id="qrWidget" class="qr-widget" aria-hidden="true" tabindex="0" aria-label="Open QR code">
+      <div class="qr-inner">
+      <img src="/assets/qr.svg" alt="QR code" />
+    </div>
+  </div>
+
+  <script src="/assets/script.js"></script>
+  <script src="/assets/card-clicks.js"></script>
+  <script src="/assets/pricing.js"></script>
+  <script src="/cookie-consent.js" defer></script>
+</body>
+</html>

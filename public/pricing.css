@@ -1,0 +1,15 @@
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-top:12px}
+.pricing-card{padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(2,8,12,0.5), rgba(1,14,20,0.4));border:1px solid rgba(0,212,255,0.06);box-shadow:0 16px 40px rgba(0,0,0,0.55)}
+.pricing-card h3{color:var(--accent);margin:0 0 8px 0}
+.pricing-list{list-style:none;padding:0;margin:0;color:#cfe}
+.pricing-list li{padding:8px 0;border-top:1px dashed rgba(255,255,255,0.03)}
+.pricing-list li strong{color:#fff}
+.pricing-card .btn{margin-top:12px;background:linear-gradient(90deg,rgba(0,200,255,0.08),rgba(0,120,200,0.06));border:1px solid rgba(0,212,255,0.08);}
+@media (max-width:640px){.pricing-grid{grid-template-columns:1fr}}
+/* controls */
+.toggle-group .btn.small{padding:6px 8px;font-size:0.86rem}
+.toggle-group .btn.small.active{background:linear-gradient(90deg,rgba(0,200,255,0.12),rgba(0,120,200,0.08));}
+.pricing-card .muted{color:rgba(180,220,240,0.75);font-size:0.9rem}
+.estimator label{display:block;margin:6px 0;color:#cfe}
+.estimator #estTotal{color:var(--accent)}
+.pricing-card .badge{position:static}

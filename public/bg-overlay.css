@@ -1,0 +1,28 @@
+/* Animated diagonal backslash overlay */
+body.bg::before{
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(135deg,
+    rgba(255,255,255,0.02) 0 2px,
+    rgba(255,255,255,0.00) 2px 12px
+  );
+  mix-blend-mode: overlay;
+  opacity: 0.95;
+  z-index: 0;
+  animation: slashShift 20s linear infinite;
+}
+
+@keyframes slashShift{
+  from { background-position: 0 0; }
+  to { background-position: 600px 600px; }
+}
+
+/* ensure app content is above overlay */
+#app{position:relative;z-index:1}
+
+/* optional stronger accent lines for larger screens */
+@media (min-width:1200px){
+  body.bg::before{background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.028) 0 3px, rgba(255,255,255,0) 3px 18px)}
+}

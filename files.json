@@ -1,0 +1,130 @@
+{
+  "updated": 1768492430569,
+  "files": [
+    {
+      "path": "public/admin/app.html",
+      "size": 4225,
+      "mtime": 1768454893955.372
+    },
+    {
+      "path": "public/admin/login.html",
+      "size": 1564,
+      "mtime": 1768345123020.0813
+    },
+    {
+      "path": "public/admin/README.md",
+      "size": 1156,
+      "mtime": 1768455424585.1023
+    },
+    {
+      "path": "public/assets/company-acme.svg",
+      "size": 239,
+      "mtime": 1768450383172.7856
+    },
+    {
+      "path": "public/assets/company-base44.svg",
+      "size": 236,
+      "mtime": 1768450383172.7856
+    },
+    {
+      "path": "public/assets/company-ride.svg",
+      "size": 241,
+      "mtime": 1768450383172.7856
+    },
+    {
+      "path": "public/assets/company-shop.svg",
+      "size": 236,
+      "mtime": 1768450383172.7856
+    },
+    {
+      "path": "public/assets/preview-company.svg",
+      "size": 230,
+      "mtime": 1768450383172.7856
+    },
+    {
+      "path": "public/assets/preview-ecom.svg",
+      "size": 235,
+      "mtime": 1768450383172.7856
+    },
+    {
+      "path": "public/assets/preview-personal.svg",
+      "size": 387,
+      "mtime": 1768450383172.7856
+    },
+    {
+      "path": "public/assets/qr.svg",
+      "size": 1109,
+      "mtime": 1768452156033.5837
+    },
+    {
+      "path": "public/assets/resume.pdf",
+      "size": 93,
+      "mtime": 1768454293415.8098
+    },
+    {
+      "path": "public/bg-overlay.css",
+      "size": 792,
+      "mtime": 1768373862496.5022
+    },
+    {
+      "path": "public/card-clicks.js",
+      "size": 1711,
+      "mtime": 1768371817394.5847
+    },
+    {
+      "path": "public/center-nav.css",
+      "size": 634,
+      "mtime": 1768371253048.4768
+    },
+    {
+      "path": "public/cookie-consent.js",
+      "size": 4656,
+      "mtime": 1768455424585.1023
+    },
+    {
+      "path": "public/data/testimonials.json",
+      "size": 789,
+      "mtime": 1768450383172.7856
+    },
+    {
+      "path": "public/home-cards.css",
+      "size": 1468,
+      "mtime": 1768452669487.4575
+    },
+    {
+      "path": "public/index.html",
+      "size": 19205,
+      "mtime": 1768489950885.2668
+    },
+    {
+      "path": "public/preview-live.js",
+      "size": 1647,
+      "mtime": 1768373862806.169
+    },
+    {
+      "path": "public/pricing.css",
+      "size": 1158,
+      "mtime": 1768373862495.505
+    },
+    {
+      "path": "public/pricing.js",
+      "size": 2590,
+      "mtime": 1768373862806.169
+    },
+    {
+      "path": "public/script.js",
+      "size": 12944,
+      "mtime": 1768455907285.5447
+    },
+    {
+      "path": "public/styles.css",
+      "size": 21607,
+      "mtime": 1768454401667.6892
+    },
+    {
+      "path": "public/tech-theme.css",
+      "size": 5681,
+      "mtime": 1768491238967.3262
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Futuristic Portfolio  Single Page</title>
+  <link rel="stylesheet" href="/assets/styles.css" />
+  <link rel="stylesheet" href="/assets/home-cards.css" />
+  <link rel="stylesheet" href="/assets/tech-theme.css" />
+  <link rel="stylesheet" href="/assets/center-nav.css" />
+  <meta name="robots" content="noindex" />
+</head>
+<body class="bg">
+  <div id="app">
+    <header class="site-header">
+      <div class="brand" data-view-link="home" style="cursor:pointer">
+        <div class="logo-text">WELCOME</div>
+      </div>
+    </header>
+
+    <main>
+      <section id="home" class="view active-view">
+        <h1>Hyper Web Designz</h1>
+        <div class="hero-centered">
+          <div class="hero-nav" role="navigation">
+            <button class="btn" data-view-link="home">Home</button>
+            <button class="btn" data-view-link="projects">Projects</button>
+            <button class="btn" data-view-link="about">About</button>
+            <div class="nav-item nav-contact" style="display:inline-block;position:relative">
+              <button class="btn nav-contact-toggle" aria-haspopup="true" aria-expanded="false">Contact</button>
+              <div class="nav-dropdown" aria-hidden="true">
+                <a class="nav-link" href="mailto:cbancman@gmail.com">cbancman@gmail.com</a>
+                <a class="nav-link" href="tel:+17852210870">785-221-0870</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="home-preview">
+          <h3>Featured Work</h3>
+          <div class="grid home-cards">
+            <div class="card" data-title="Promotional Landing" data-img="/assets/preview-ride.png">
+              <div class="card-media"><img src="/assets/preview-ride.png" alt="Preview" onerror="this.style.display='none'"/></div>
+              <div class="card-body"><strong>Promotional Landing</strong><small>Landing & lead capture</small></div>
+            </div>
+            <div class="card" data-title="App Promo Site" data-img="/assets/preview-base44.png">
+              <div class="card-media"><img src="/assets/preview-base44.png" alt="Preview" onerror="this.style.display='none'"/></div>
+              <div class="card-body"><strong>App Promo Site</strong><small>SPA, analytics</small></div>
+            </div>
+            <div class="card" data-title="E‑commerce Campaign" data-img="/assets/preview-shop.png">
+              <div class="card-media"><img src="/assets/preview-shop.png" alt="Preview" onerror="this.style.display='none'"/></div>
+              <div class="card-body"><strong>E‑commerce Campaign</strong><small>Checkout & payments</small></div>
+            </div>
+          </div>
+          <div style="margin-top:12px;text-align:center"><button class="btn" data-view-link="projects">See all projects</button></div>
+        </div>
+      </section>
+
+      <section id="projects" class="view">
+        <h2>Projects</h2>
+        <p>Examples and anonymized previews.</p>
+        <div class="grid">
+          <article class="card">
+            <div class="card-media"><img src="/assets/preview-ride.png" alt="Ride preview" onerror="this.style.display='none'"/></div>
+            <div class="card-body">
+              <h3>Promotional Landing (sample)</h3>
+              <p>Marketing landing with hero, lead capture and PDF export.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="about" class="view">
+        <h2>About</h2>
+        <p>I combine AI-assisted design with handcrafted code.</p>
+      </section>
+
+      <section id="contact" class="view">
+        <h2>Contact</h2>
+        <p>Email: <a href="mailto:cbancman@gmail.com">cbancman@gmail.com</a></p>
+        <form id="contactForm">
+          <input id="cname" placeholder="Your name" />
+          <input id="cemail" type="email" placeholder="Email" />
+          <textarea id="cmessage" placeholder="Message"></textarea>
+          <button class="btn">Send</button>
+        </form>
+      </section>
+
+    </main>
+
+    <footer class="site-footer"> Portfolio  sample only</footer>
+  </div>
+
+  <div id="previewModal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+      <button class="modal-close"></button>
+      <div class="preview-inner">
+        <div class="preview-img"><img id="previewImg" src="" alt="preview"/></div>
+        <div class="preview-meta"><h3 id="previewTitle">Title</h3><pre id="previewCode" class="modal-code"></pre></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/script.js"></script>
+  <script src="/assets/card-clicks.js"></script>
+</body>
+</html>
