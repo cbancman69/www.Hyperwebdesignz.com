@@ -36,5 +36,6 @@ Deployment checklist — www.hyperwebdesignz.com
 - Check Actions tab for the workflow run and the Pages section in repo Settings for any required enforcement (HTTPS certificate provisioning may take a few minutes).
 
 5) Notes & troubleshooting
-- If GitHub Pages reports a domain conflict, remove any previous custom domain settings from other repos using the same domain.
-- If the site doesn't appear after a successful Pages setup, wait ~10 minutes for DNS/HTTPS to propagate.
+---
+Auto-trigger note: repository updated to force a push-triggered deploy on 2026-01-22.
+
