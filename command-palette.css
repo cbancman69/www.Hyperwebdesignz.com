@@ -1,0 +1,20 @@
+:root{--cp-bg:#071026;--cp-surface:#0f1724;--cp-fg:#e6eef8;--cp-muted:#94a3b8;--cp-accent:#8b5cf6}
+/* Command Palette styles (minimal, inspired by cmdk) */
+body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial;color:var(--cp-fg)}
+.cp-overlay{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:flex;align-items:flex-start;justify-content:center;padding:8vh 16px;z-index:10000}
+.cp-dialog{width:640px;max-width:100%;background:var(--cp-surface);border-radius:12px;box-shadow:0 10px 40px rgba(2,6,23,0.7);overflow:hidden;border:1px solid rgba(255,255,255,0.04)}
+.cp-input{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.03)}
+.cp-input input{flex:1;background:transparent;border:0;padding:8px 6px;color:var(--cp-fg);font-size:15px;outline:none}
+.cp-list{max-height:320px;overflow:auto;padding:6px}
+.cp-group-heading{padding:8px 10px;color:var(--cp-muted);font-size:12px;font-weight:600}
+.cp-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;cursor:pointer;font-size:14px}
+.cp-item:hover,.cp-item[aria-selected='true']{background:linear-gradient(90deg, rgba(139,92,246,0.08), rgba(139,92,246,0.02));}
+.cp-item .label{flex:1}
+.cp-shortcut{color:var(--cp-muted);font-size:12px}
+.cp-empty{padding:24px;text-align:center;color:var(--cp-muted)}
+.cp-sep{height:1px;background:rgba(255,255,255,0.02);margin:6px 0}
+.cp-kbd{background:rgba(255,255,255,0.03);border-radius:6px;padding:2px 6px;font-size:12px;color:var(--cp-muted)}
+
+/* small fade */
+.cp-open{animation:cp-in 120ms ease-out}
+@keyframes cp-in{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}

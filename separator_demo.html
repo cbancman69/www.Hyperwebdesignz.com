@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Separator Demo</title>
+  <link rel="stylesheet" href="/separator.css">
+  <style>body{background:#071026;color:#dbeafe;font-family:Inter,system-ui;padding:28px}h1{margin-bottom:16px}</style>
+</head>
+<body>
+  <h1>Separator — Demo</h1>
+
+  <div class="demo-row">
+    <div class="demo-box">Left</div>
+    <div style="flex:1"><span class="sep-horizontal"></span></div>
+    <div class="demo-box">Right</div>
+  </div>
+
+  <div style="height:18px"></div>
+
+  <div style="display:flex;align-items:stretch;height:120px;background:transparent;padding:12px;border-radius:8px">
+    <div class="demo-box" style="width:120px">Column A</div>
+    <div style="width:12px"></div>
+    <div class="sep-vertical" style="height:100%"></div>
+    <div style="width:12px"></div>
+    <div class="demo-box" style="flex:1">Column B</div>
+  </div>
+
+  <div style="height:18px"></div>
+
+  <div class="demo-row">
+    <div class="demo-box">Muted</div>
+    <div style="flex:1"><span class="sep-horizontal muted"></span></div>
+    <div class="demo-box">Example</div>
+  </div>
+
+</body>
+</html>

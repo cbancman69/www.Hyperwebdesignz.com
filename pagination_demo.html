@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Pagination Demo</title>
+  <link rel="stylesheet" href="/pagination.css">
+  <script defer src="/pagination.js"></script>
+  <style>body{background:#071026;color:#dbeafe;font-family:Inter,system-ui;padding:28px}h1{margin-bottom:12px}</style>
+</head>
+<body>
+  <h1>Pagination — Demo</h1>
+
+  <div class="pagination">
+    <nav class="pagination-root" data-total="12" data-current="1" aria-label="Pagination"></nav>
+  </div>
+
+  <div style="height:18px"></div>
+
+  <div class="pagination">
+    <!-- static example (custom current marking) -->
+    <nav class="pagination-root" aria-label="Static Pagination">
+      <ul>
+        <li class="pg-item"><a class="pg-link pg-prev" href="#" data-page="1">◀ Previous</a></li>
+        <li class="pg-item"><a class="pg-link" href="#" data-page="1">1</a></li>
+        <li class="pg-item"><a class="pg-link active" href="#" data-page="2">2</a></li>
+        <li class="pg-item"><span class="pg-ellipsis">…</span></li>
+        <li class="pg-item"><a class="pg-link" href="#" data-page="12">12</a></li>
+        <li class="pg-item"><a class="pg-link pg-next" href="#" data-page="3">Next ▶</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <script>
+    document.querySelectorAll('.pagination-root').forEach(root=>{
+      root.addEventListener('pagination:change', (e)=>{
+        alert('Go to page: ' + e.detail.page)
+      })
+    })
+  </script>
+</body>
+</html>

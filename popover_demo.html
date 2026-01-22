@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Popover Demo</title>
+  <link rel="stylesheet" href="/popover.css">
+  <script defer src="/popover.js"></script>
+  <style>body{background:#071026;color:#dbeafe;font-family:Inter,system-ui;padding:28px}button.trig{padding:8px 12px;border-radius:8px;border:none;background:#7c3aed;color:white}</style>
+</head>
+<body>
+  <h2>Popover Demo</h2>
+  <p>Click the buttons to open popovers. They will position relative to the trigger.</p>
+  <button class="trig" data-popover="#po1">Open Popover</button>
+  <button class="trig" data-popover="#po2" data-side="top" style="margin-left:8px">Top Popover</button>
+
+  <div id="po1" class="po" role="dialog" aria-hidden="true">
+    <div class="po-header">Quick Actions</div>
+    <div class="po-body">Create, open, or manage items from here.</div>
+    <div class="po-actions">
+      <button class="po-btn">Cancel</button>
+      <button class="po-btn primary">Create</button>
+    </div>
+  </div>
+
+  <div id="po2" class="po" role="dialog" aria-hidden="true">
+    <div class="po-header">Profile</div>
+    <div class="po-body">View profile settings and sign out.</div>
+    <div class="po-actions"><button class="po-btn">Close</button></div>
+  </div>
+</body>
+</html>

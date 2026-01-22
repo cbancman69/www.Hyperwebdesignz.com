@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Tabs Demo</title>
+  <link rel="stylesheet" href="/tabs.css">
+  <script defer src="/tabs.js"></script>
+  <style>body{background:#071026;color:#dbeafe;font-family:Inter,system-ui;padding:28px}h1{margin-bottom:12px}</style>
+</head>
+<body>
+  <h1>Tabs Component — Demo</h1>
+
+  <div class="tabs-root" role="tablist">
+    <div class="tabs-list" role="tablist" aria-label="Demo Tabs">
+      <button class="tab-trigger" role="tab" aria-selected="true">Overview</button>
+      <button class="tab-trigger" role="tab">Pricing</button>
+      <button class="tab-trigger" role="tab">FAQ</button>
+    </div>
+
+    <div class="tab-content">
+      <div id="panel-1" role="tabpanel" class="tab-panel">
+        <h3>Overview</h3>
+        <p>Welcome — this is the overview panel. Use left/right arrows to navigate tabs.</p>
+      </div>
+      <div id="panel-2" role="tabpanel" class="tab-panel" hidden>
+        <h3>Pricing</h3>
+        <p>Price plans are listed here. Select a plan to continue.</p>
+      </div>
+      <div id="panel-3" role="tabpanel" class="tab-panel" hidden>
+        <h3>FAQ</h3>
+        <p>Frequently asked questions live here.</p>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

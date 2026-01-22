@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ride With Ree</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--robins:#00cccc;--vivid:#9b00ff;--vivid-2:#cc88ff}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,#e9fbfb, var(--robins));color:#021217}
+    .page{min-height:100%;display:flex;align-items:center;justify-content:center;padding:28px}
+    .card{display:flex;flex-direction:column;align-items:center;gap:18px;padding:28px;border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,0.9),rgba(250,245,255,0.88));box-shadow:0 30px 80px rgba(0,0,0,0.12);max-width:520px;width:100%;text-align:center}
+    .logo{display:inline-flex;align-items:center;gap:10px}
+    .logo svg{width:64px;height:64px}
+    .logo-text{font-weight:800;color:var(--vivid);font-size:20px}
+    .title{font-family:'Great Vibes', cursive;font-size:56px;color:var(--vivid);margin:0;line-height:1}
+    .title-underline{width:160px;height:6px;margin-top:-6px;border-radius:6px;background:linear-gradient(90deg,var(--vivid),var(--vivid-2));box-shadow:0 14px 40px rgba(155,32,255,0.14);transform:rotate(-3deg)}
+    .qr{width:220px;height:220px;border-radius:18px;padding:14px;background:linear-gradient(180deg,#fff6ff,#f3e8ff);display:flex;align-items:center;justify-content:center;border:1px solid rgba(155,32,255,0.14);box-shadow:0 30px 90px rgba(155,32,255,0.12)}
+    .qr img.qr-img{width:180px;height:180px;object-fit:contain;border-radius:8px;display:block}
+    .caption{color:#004;opacity:0.9;font-weight:600}
+    @media (max-width:520px){.title{font-size:40px}.card{padding:18px}.qr{width:180px;height:180px}}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="card" role="main">
+      <h1 class="title">Ride With Ree</h1>
+      <div style="height:28px"></div>
+      <!-- Ultra-simple visible clickable square fallback -->
+      <a href="https://example.com" target="_blank" rel="noopener" style="display:inline-block;text-decoration:none">
+        <div style="width:260px;height:260px;border-radius:24px;background:linear-gradient(180deg,#9b00ff,#cc88ff);display:flex;align-items:center;justify-content:center;box-shadow:0 40px 120px rgba(155,32,255,0.2);">
+          <div style="color:#fff;font-weight:800;font-size:18px;letter-spacing:0.6px;text-align:center;padding:8px;">Open Ride With Ree</div>
+        </div>
+      </a>
+      <div class="caption">Tap to open example.com</div>
+    </div>
+  </div>
+</body>
+<script>
+      // Create a data-URI from the inline SVG and show it as a fallback image.
+  (function(){
+    try{
+      var svg = document.getElementById('qr-svg');
+      if(!svg) return;
+      var serializer = new XMLSerializer();
+      var svgString = serializer.serializeToString(svg);
+      var encoded = encodeURIComponent(svgString);
+      var img = document.getElementById('qr-fallback');
+      if(img){
+        img.src = 'data:image/svg+xml;charset=utf-8,' + encoded;
+        img.style.display = 'block';
+        // keep both visible; if you prefer only the image, uncomment next line
+        // svg.style.display = 'none';
+      }
+      // Also create an external QR image as a robust fallback and ensure links open https://example.com
+      try{
+        var externalQr = document.createElement('img');
+        externalQr.style.display = 'none';
+        externalQr.className = 'qr-img';
+        externalQr.alt = 'QR to example.com';
+        externalQr.src = 'https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=' + encodeURIComponent('https://example.com') + '&color=9b00ff&bgcolor=ffffff';
+        var qrContainer = document.querySelector('.qr');
+        qrContainer && qrContainer.appendChild(externalQr);
+      }catch(e){}
+
+      // If neither SVG nor image render, show a visible purple fallback button
+      setTimeout(function(){
+        var rectSvg = svg.getBoundingClientRect();
+        var imgEl = document.getElementById('qr-fallback');
+        var rectImg = imgEl ? imgEl.getBoundingClientRect() : {width:0,height:0};
+        var ok = (rectSvg.width>2 && rectSvg.height>2) || (rectImg.width>2 && rectImg.height>2);
+        if(!ok){
+          var btn = document.createElement('a');
+          btn.href = 'https://example.com';
+          btn.textContent = 'Open Ride With Ree';
+          btn.style.display = 'inline-block';
+          btn.style.padding = '18px 28px';
+          btn.style.borderRadius = '14px';
+          btn.style.background = 'linear-gradient(90deg,#9b00ff,#cc88ff)';
+          btn.style.color = '#fff';
+          btn.style.fontWeight = '700';
+          btn.style.boxShadow = '0 30px 80px rgba(155,32,255,0.14)';
+          btn.style.marginTop = '12px';
+          var parent = document.querySelector('.card');
+          parent && parent.appendChild(btn);
+        }
+      },120);
+    }catch(e){console && console.warn && console.warn('QR fallback generation failed', e)}
+  })();
+</script>
+</html>

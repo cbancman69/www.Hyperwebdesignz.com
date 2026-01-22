@@ -1,0 +1,820 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Futuristic Web Design — Portfolio</title>
+    <meta name="description" content="Futuristic portfolio and pricing for web design clients." />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+      :root{
+        --bg:#020319;
+        --panel:rgba(255,255,255,0.035);
+        --glass:rgba(255,255,255,0.02);
+        --accent:#00d4ff;
+        --accent-2:#7af0ff;
+        --muted:#9aa6b2;
+      }
+      html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Arial;background:linear-gradient(180deg,#020319,#04102a);color:#e8f7ff;overflow-x:hidden}
+      .wrap{max-width:1250px;margin:28px auto;padding:36px;background:transparent;border:0;border-radius:0;box-shadow:none;transition:none}
+      .wrap:hover{box-shadow:none;transform:none}
+
+      /* animated background accent */
+      :root{--blob-size:420px}
+      .bg-blob{position:fixed;right:-120px;top:-80px;width:var(--blob-size);height:var(--blob-size);background:radial-gradient(circle at 30% 30%, rgba(0,212,255,0.08), transparent 30%), radial-gradient(circle at 70% 70%, rgba(122,240,255,0.04), transparent 40%);filter:blur(40px);transform:rotate(10deg);pointer-events:none;z-index:0;mix-blend-mode:screen;animation:blob 14s linear infinite;opacity:0.85}
+      /* (stars, parallax lines, and vignette removed per request) */
+      /* soft backlight layers: large blurred radial lights behind content */
+      .backlight-1,.backlight-2{position:fixed;pointer-events:none;z-index:0;filter:blur(52px);mix-blend-mode:screen;opacity:0.6}
+      .backlight-1{right:-10%;top:-18%;width:900px;height:900px;background:radial-gradient(circle at 30% 30%, rgba(0,212,255,0.22), rgba(122,240,255,0.10) 35%, transparent 55%);transform:translateZ(0);animation:backlightFloat 18s ease-in-out infinite}
+      .backlight-2{left:-12%;bottom:-12%;width:700px;height:700px;background:radial-gradient(circle at 70% 70%, rgba(123,90,255,0.12), rgba(0,212,255,0.06) 30%, transparent 60%);opacity:0.45;animation:backlightShift 22s ease-in-out infinite}
+      @keyframes backlightFloat{0%{transform:translateY(0) rotate(0)}50%{transform:translateY(-14px) rotate(2deg)}100%{transform:translateY(0) rotate(0)}}
+      @keyframes backlightShift{0%{transform:translateX(0) translateY(0)}50%{transform:translateX(12px) translateY(-8px)}100%{transform:translateX(0) translateY(0)}}
+      @keyframes blob{0%{transform:translateY(0) rotate(0)}50%{transform:translateY(18px) rotate(6deg)}100%{transform:translateY(0) rotate(0)}}
+      /* subtle animated grid for futuristic feel */
+      .grid-lines{position:fixed;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px);background-size:120px 120px,120px 120px;opacity:0.06;mix-blend-mode:overlay;animation:moveGrid 28s linear infinite}
+      @keyframes moveGrid{0%{background-position:0 0,0 0}50%{background-position:60px 60px,-60px -60px}100%{background-position:0 0,0 0}}
+
+      /* gradient brush background: layered gradients + subtle radial "brush" textures */
+      body::before{
+        content:'';position:fixed;inset:0;pointer-events:none;z-index:-2;opacity:0.98;
+        background:
+          radial-gradient(800px circle at 12% 20%, rgba(255,255,255,0.03), transparent 12%),
+          radial-gradient(600px circle at 85% 72%, rgba(255,255,255,0.02), transparent 14%),
+          radial-gradient(420px circle at 50% 10%, rgba(255,255,255,0.02), transparent 10%),
+          linear-gradient(120deg,#071428 0%,#0b2540 36%,#061528 100%);
+        background-blend-mode:screen,screen,screen,normal;filter:blur(6px) saturate(1.05);
+      }
+
+      /* subtle sweeping strokes to emulate brush texture */
+      body::after{
+        content:'';position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:0.16;mix-blend-mode:overlay;filter:blur(8px) contrast(1.05);
+        background-image:
+          linear-gradient(110deg, rgba(255,255,255,0.02) 0%, transparent 20%, rgba(255,255,255,0.01) 60%, transparent 100%),
+          radial-gradient(600px 220px at 8% 30%, rgba(255,255,255,0.018), transparent 30%),
+          radial-gradient(420px 180px at 92% 70%, rgba(255,255,255,0.01), transparent 28%);
+        transform:rotate(-6deg) translateY(-6px);
+      }
+
+      header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:24px 18px 12px;background:transparent;border:0;border-radius:0;width:100%;box-sizing:border-box;position:relative;z-index:2;box-shadow:none}
+      .brand{font-weight:900;color:var(--accent);font-size:20px;letter-spacing:0.6px;text-shadow:none;display:flex;align-items:center;gap:12px;margin-top:64px}
+      /* modern translucent brand badge (enlarged) */
+      .brand-title{display:inline-block;position:relative;background:rgba(255,255,255,0.03);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.04);padding:10px 16px;border-radius:12px;color:rgba(232,247,255,0.98);font-size:28px;font-weight:900;letter-spacing:0.8px;line-height:1}
+      .brand-sub{display:block;font-size:13px;color:var(--muted);font-weight:700;margin-top:6px;letter-spacing:0.4px}
+      .brand-title::after{content:'';position:absolute;left:0;right:0;bottom:-8px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--accent),var(--accent-2));opacity:0.85;transform:scaleX(0);transform-origin:left center;transition:transform .36s cubic-bezier(.2,.9,.2,1)}
+      .brand-title:hover::after{transform:scaleX(1)}
+      @keyframes brandShift{0%{background-position:0%}50%{background-position:100%}100%{background-position:0%}}
+      .brand-title{background-size:200% 100%;animation:brandShift 6s linear infinite}
+      /* hide legacy blue square logo (removed per request) */
+      .logo{display:none}
+      @keyframes floatLogo{0%{transform:translateY(0) rotate(0)}50%{transform:translateY(-6px) rotate(2deg)}100%{transform:translateY(0) rotate(0)}}
+      .brand-welcome{display:inline-block;margin-left:12px;font-weight:900;font-size:20px;letter-spacing:1px;background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+      .brand-giant{display:block;font-size:72px;font-weight:900;letter-spacing:2px;background:linear-gradient(90deg,var(--accent),#9bfffd);-webkit-background-clip:text;background-clip:text;color:transparent;text-align:center;text-transform:uppercase}
+      
+      /* floating cart on bottom-right */
+      .cart{position:fixed;right:22px;bottom:92px;z-index:140;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#021;border-radius:999px;padding:8px 10px;display:flex;align-items:center;gap:8px;font-weight:900;box-shadow:0 12px 40px rgba(0,212,255,0.09);cursor:pointer;font-size:16px}
+      .cart #cart-count{background:#021;color:var(--accent);padding:4px 8px;border-radius:999px;font-weight:900;font-size:12px}
+      .center-nav{display:flex;justify-content:center;gap:18px;margin:18px 0;position:relative}
+      .center-nav{display:flex;justify-content:center;gap:18px;margin:18px 0;position:relative}
+      .center-nav a,.center-nav button{color:rgba(255,255,255,0.86);text-decoration:none;font-weight:700;padding:8px 12px;border-radius:8px;background:transparent;border:0}
+      .center-nav a{opacity:0;transform:translateY(6px);transition:opacity .38s ease,transform .38s ease}
+      .center-nav a.animate-in{opacity:1;transform:none}
+      .center-nav a:hover,.center-nav button:hover{background:rgba(255,255,255,0.02);cursor:pointer}
+      .contact-dropdown{position:fixed;left:50%;transform:translate(-50%,12px);bottom:22px;min-width:320px;width:calc(100% - 48px);max-width:720px;background:rgba(255,255,255,0.02);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.04);padding:12px;border-radius:12px;box-shadow:0 18px 60px rgba(0,0,0,0.6);z-index:120;opacity:0;pointer-events:none;transition:transform .22s ease,opacity .18s ease}
+      .contact-dropdown.open{transform:translate(-50%,0);opacity:1;pointer-events:auto}
+
+      /* bottom contact button + menu */
+      .bottom-contact-btn{position:fixed;right:22px;bottom:22px;z-index:130;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#021;border:none;padding:12px 14px;border-radius:999px;box-shadow:0 12px 40px rgba(0,212,255,0.08);cursor:pointer;font-weight:800}
+      .bottom-menu{position:fixed;right:22px;bottom:72px;z-index:125;min-width:220px;background:rgba(255,255,255,0.02);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.04);padding:8px;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,0.6);opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .18s ease,transform .18s ease}
+      #bottom-menu-toggle:checked + label + .bottom-menu{opacity:1;pointer-events:auto;transform:translateY(0)}
+      .bottom-menu a{display:block;padding:8px 6px;color:inherit;text-decoration:none}
+      .contact-dropdown a{color:var(--accent)}
+      /* show contact section in-page; when the contact toggle/menu is placed inside .wrap make it inline */
+      /* restore in-page contact and render the toggle/menu inline instead of fixed */
+      /* center the contact controls when inside the contact section */
+      .wrap #contact{ text-align:center }
+      .wrap .bottom-contact-btn{position:relative;right:auto;bottom:auto;margin:18px auto;display:inline-flex;align-items:center;gap:10px;justify-content:center}
+      .wrap #bottom-menu{position:relative;right:auto;bottom:auto;margin:8px auto 18px;min-width:320px;opacity:0;pointer-events:none;transform:translateY(8px);transition:transform .18s ease,opacity .18s ease;left:auto;right:auto}
+      #bottom-menu-toggle:checked + label + .bottom-menu{opacity:1;pointer-events:auto;transform:translateY(0)}
+      /* neon accent underline for active/hovered nav */
+      .center-nav a::after{content:'';display:block;height:2px;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));border-radius:2px;transition:width .22s ease;margin-top:6px}
+      .center-nav a:hover::after{width:60%}
+
+      .hero{display:grid;grid-template-columns:1fr 340px;gap:28px;align-items:center;margin:18px 0 28px;position:relative;z-index:2;min-height:60vh}
+      .hero:before{content:'';display:none}
+      .hero .lead{background:transparent;padding:26px;border-radius:0;border:0;backdrop-filter:none;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%}
+      .hero h1{margin:0 0 10px;font-size:34px;line-height:1.02}
+      .hero p{margin:0;color:var(--muted);font-size:18px}
+      .hero .cta{display:inline-block;margin-top:14px;padding:12px 18px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#021;border-radius:12px;font-weight:800;text-decoration:none;box-shadow:0 8px 30px rgba(0,212,255,0.08)}
+      /* tech panel and chips removed as requested */
+
+      /* Pricing grid: columns per plan */
+      .pricing-section{margin:26px 0}
+      .pricing-title{font-size:18px;color:#cfefff;margin:12px auto;text-align:center;width:100%;display:block}
+      .pricing-title::after{content:'';display:block;height:6px;max-width:420px;margin:10px auto 0;background:linear-gradient(90deg,transparent,rgba(0,212,255,0.08),transparent);border-radius:6px;opacity:0.9}
+      section h4{ text-align:center !important; margin:12px 0; color:var(--muted); position:relative }
+      /* white underline for section headings (matches brand underline behavior) */
+      section h4::after{ content:''; display:block;height:4px;max-width:180px;width:64px;margin:8px auto 0;background:linear-gradient(90deg, rgba(255,255,255,0.95), rgba(255,255,255,0.7));border-radius:4px;transform:scaleX(0);transform-origin:left center;transition:transform .36s cubic-bezier(.2,.9,.2,1) }
+      section h4:hover::after{ transform:scaleX(1) }
+      .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+      /* vertical modifier: stack plans in a single column */
+      .pricing-grid.vertical{display:flex;flex-direction:column;gap:14px}
+      .plan{background:rgba(255,255,255,0.02);padding:20px;border-radius:16px;border:1px solid rgba(255,255,255,0.05);backdrop-filter:blur(10px);box-shadow:0 6px 18px rgba(0,0,0,0.45);transition:transform .22s ease,box-shadow .22s ease;cursor:pointer;position:relative;overflow:hidden}
+      .plan::after{content:'';position:absolute;inset:0;border-radius:16px;padding:1px;background:linear-gradient(90deg,transparent,rgba(0,212,255,0.04),transparent);mix-blend-mode:screen;opacity:0;transition:opacity .25s ease}
+      .plan:hover::after{opacity:1}
+      /* vertical glowing separators between plans (desktop) */
+      @media(min-width:600px){
+        .pricing-grid .plan{position:relative}
+        .pricing-grid .plan + .plan::before{
+          content:'';position:absolute;left:-10px;top:8px;bottom:8px;width:4px;border-radius:3px;
+          background:linear-gradient(180deg,rgba(0,212,255,0) 0%, rgba(0,212,255,0.14) 30%, rgba(122,240,255,0.22) 50%, rgba(0,212,255,0.14) 70%, rgba(0,212,255,0) 100%);
+          box-shadow:0 0 10px rgba(0,212,255,0.12), 0 0 24px rgba(122,240,255,0.06);
+          pointer-events:none;opacity:0.95;mix-blend-mode:screen;transform:translateZ(0);
+        }
+      }
+      .plan .neon-line{height:4px;border-radius:4px;margin:12px 0;background:linear-gradient(90deg,var(--accent),var(--accent-2));box-shadow:0 8px 28px rgba(0,212,255,0.06);transition:box-shadow .22s ease}
+      .plan:hover{transform:translateY(-10px) scale(1.03) rotate(-0.6deg);box-shadow:0 28px 80px rgba(0,212,255,0.14), 0 10px 30px rgba(0,212,255,0.06);border:1px solid rgba(122,240,255,0.08)}
+      .plan:hover .neon-line{box-shadow:0 12px 40px rgba(0,212,255,0.12)}
+      .plan:focus{outline:2px solid rgba(0,212,255,0.08);outline-offset:6px}
+      .plan h3{margin:0 0 8px;font-size:16px}
+      /* underline animation for plan titles (matches brand underline) */
+      .plan h3{position:relative;display:inline-block}
+      .plan h3::after{content:'';position:absolute;left:0;right:0;bottom:-8px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--accent),var(--accent-2));opacity:0.95;transform:scaleX(0);transform-origin:left center;transition:transform .36s cubic-bezier(.2,.9,.2,1)}
+      .plan:hover h3::after{transform:scaleX(1)}
+      .price-range{font-size:12px;color:var(--muted);margin-top:8px}
+      .price{display:flex;align-items:baseline;gap:10px;margin:8px 0}
+      .price .amount{font-weight:900;color:var(--accent);font-size:22px;text-shadow:0 6px 30px rgba(0,212,255,0.03)}
+      .price .period{color:var(--muted);font-size:13px}
+      .plan .meta{color:var(--muted);font-size:13px;margin-bottom:10px;opacity:0.9}
+      /* contact brief form */
+      .contact-form{max-width:760px;margin:8px auto;padding:16px;border-radius:12px;background:rgba(255,255,255,0.02);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.04)}
+      .contact-field{display:flex;flex-direction:column;margin-bottom:10px}
+      .contact-field label{font-size:13px;color:var(--muted);margin-bottom:6px}
+      .contact-field input,.contact-field textarea,.contact-field select{padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+      .btn-primary{display:inline-block;padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#021;border:none;font-weight:800;cursor:pointer}
+      .testimonial-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px}
+      .testimonial{padding:12px;border-radius:10px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.03);font-size:13px;color:var(--muted)}
+      /* design showcase */
+      /* shift the design grid slightly so the center (Marketing Site) aligns under the centered heading */
+      .design-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:12px;/* reduced negative offset to move grid a bit right */margin-left:calc(-130px + 10px);max-width:920px}
+      /* layout for Design Showcase with left-side brand/cart */
+      .designs-layout{display:grid;grid-template-columns:260px 1fr;gap:22px;align-items:start;align-content:start}
+      .design-side{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+      /* nudge brand further up so it sits higher in the design column */
+      .design-side .brand{margin:-28px 0 0 0}
+      @media(max-width:900px){
+        .designs-layout{grid-template-columns:1fr;}
+        .design-side{order:0;align-items:center;text-align:center}
+        .design-side .brand .brand-sub{display:block}
+      }
+      .design-card{height:160px;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.04);background:linear-gradient(135deg,rgba(255,255,255,0.01),rgba(255,255,255,0.02));display:flex;flex-direction:column;justify-content:flex-end;padding:12px;transition:transform .28s ease,box-shadow .28s ease;opacity:0;transform:translateY(10px)}
+      .design-thumb{flex:1;border-radius:10px;background-size:cover;background-position:center;margin-bottom:10px;transition:transform .32s ease}
+      .design-card.animate-in{opacity:1;transform:none}
+      .design-card:hover{transform:translateY(-8px);box-shadow:0 18px 50px rgba(0,212,255,0.06)}
+      .design-card:hover .design-thumb{transform:scale(1.03)}
+      .design-title{font-weight:800;color:#e8f7ff}
+      .plan ul{margin:8px 0 0 18px;color:var(--muted);font-size:13px}
+      .plan .btn{display:none}
+
+      /* subtle hover detail for plans */
+      .plan .meta{transition:color .18s ease}
+      .plan:hover .meta{color:#dff9ff}
+
+      /* cart pulse when items are added */
+      .cart.pulse{animation:cartPulse .8s cubic-bezier(.2,.9,.2,1)}
+      @keyframes cartPulse{0%{transform:scale(1)}45%{transform:scale(1.09)}80%{transform:scale(.98)}100%{transform:scale(1)}}
+
+      /* visual feedback when a plan is clicked */
+      .added-badge{position:absolute;top:12px;right:12px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#021;padding:6px 8px;border-radius:8px;font-weight:700;font-size:12px;box-shadow:0 8px 30px rgba(0,212,255,0.06);opacity:0;transform:translateY(-6px) scale(.98);transition:opacity .18s ease,transform .18s ease}
+      .plan.added .added-badge{opacity:1;transform:translateY(0) scale(1)}
+
+      /* Projects: empty by design */
+      .projects{min-height:40px;margin-top:20px}
+
+      footer{margin-top:32px;color:var(--muted);font-size:13px;text-align:center;background:transparent}
+
+      /* added animations for plans and titles */
+      .plan{opacity:0;transform:translateY(12px);transition:opacity .42s ease,transform .42s cubic-bezier(.2,.9,.2,1),box-shadow .22s ease}
+      .plan.animate-in{opacity:1;transform:none}
+      .pricing-title, .design-title{opacity:0;transform:translateY(8px);transition:opacity .38s ease,transform .38s cubic-bezier(.2,.9,.2,1)}
+      .pricing-title.animate-in, .design-title.animate-in{opacity:1;transform:none}
+
+      /* small screen */
+      @media(max-width:900px){
+        .hero{grid-template-columns:1fr}
+        .wrap{padding:20px}
+        :root{--blob-size:300px}
+        .brand{margin-top:12px}
+      }
+      /* responsive adjustments for designs grid on small screens */
+      @media(max-width:900px){
+        .design-grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));width:100%;justify-content:center;margin-left:0}
+        .design-card{width:100%;max-width:320px}
+      }
+      /* brand placed above Design Showcase (left-aligned to the page/wrap) */
+      .designs-brand{display:block;text-align:left;margin:-22px 0 8px;padding-left:0}
+      .designs-brand .brand-title{font-size:28px;display:inline-block}
+      /* Overrides: center card content and lists so information reads centered */
+      .design-card, .design-grid .design-card { align-items: center; text-align: center; }
+      .design-title { margin: 6px 0; text-align: center; }
+      .plan { display:flex; flex-direction:column; align-items:center; text-align:center; }
+      .plan ul { margin:8px 0; padding:0; color:var(--muted); font-size:13px; list-style-position:inside }
+      .plan ul li { margin:6px 0 }
+      /* More-info toggles for design and plan cards */
+      .more-btn{margin-top:10px;padding:8px 10px;border-radius:8px;background:transparent;color:var(--accent);border:1px solid rgba(255,255,255,0.04);cursor:pointer;font-weight:700}
+      .more-info{overflow:hidden;max-height:0;opacity:0;transition:max-height .36s ease,opacity .28s ease;margin-top:0}
+      .more-info.open{max-height:420px;opacity:1;margin-top:10px}
+      .more-info .more-desc{color:var(--muted);font-size:13px;line-height:1.35}
+      /* Fixed QR (bottom-left) — compact and expands on hover */
+      .qr-fixed{position:fixed;left:16px;bottom:84px;z-index:100100;display:flex;flex-direction:column-reverse;align-items:center;gap:8px;pointer-events:auto}
+      .qr-toggle{width:40px;height:40px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent-2));display:inline-flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 8px 24px rgba(0,212,255,0.06);border:1px solid rgba(255,255,255,0.04);pointer-events:auto}
+      .qr-toggle .dot{width:14px;height:14px;background:#021;border-radius:4px;opacity:0.95}
+      .qr-hint{color:var(--accent);font-weight:700;font-size:11px;margin:2px 0 0 0;letter-spacing:0.2px}
+      .qr-panel{margin-bottom:8px;pointer-events:none;opacity:0;transform:translateY(6px) scale(.98);transition:opacity .18s ease,transform .22s cubic-bezier(.2,.9,.2,1);background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:10px;border-radius:12px;display:flex;flex-direction:column;align-items:center}
+      .qr-panel.show{pointer-events:auto;opacity:1;transform:none}
+      .qr-panel .qr-img-fixed{width:96px;height:96px;border-radius:10px;padding:4px;background:linear-gradient(90deg,var(--accent),var(--accent-2));box-shadow:0 10px 30px rgba(0,212,255,0.05)}
+      .qr-panel .qr-caption{font-size:11px;color:var(--muted);margin-top:6px}
+      /* Access gate: overlay to restrict public access unless token or localhost */
+      .access-gate{position:fixed;inset:0;background:linear-gradient(rgba(2,3,25,0.92),rgba(2,3,25,0.96));display:flex;align-items:center;justify-content:center;z-index:99999;color:#e8f7ff}
+      .access-box{max-width:460px;width:92%;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);backdrop-filter:blur(10px);padding:18px;border-radius:12px;text-align:center}
+      .access-box h3{margin:0 0 8px;font-size:18px;color:var(--accent)}
+      .access-box p{color:var(--muted);font-size:13px;margin:8px 0}
+      .access-box #gate-qr{width:140px;height:140px;margin:10px auto;border-radius:10px;padding:6px;background:linear-gradient(90deg,var(--accent),var(--accent-2));}
+      .access-box .gate-actions{display:flex;gap:8px;justify-content:center;margin-top:8px}
+      .access-box .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted);padding:8px 12px;border-radius:8px}
+      @media(max-width:900px){ .access-box #gate-qr{width:110px;height:110px} }
+      @media(max-width:900px){
+        .qr-fixed{bottom:18px}
+        .qr-panel .qr-img-fixed{width:82px;height:82px}
+        .qr-toggle{width:36px;height:36px}
+      }
+    </style>
+  </head>
+  <body>
+    <!-- decorative background layers (backlight, blob, grid) -->
+    <div class="backlight-1" aria-hidden="true"></div>
+    <div class="backlight-2" aria-hidden="true"></div>
+    <div class="bg-blob" aria-hidden="true"></div>
+    <div class="grid-lines" aria-hidden="true"></div>
+
+    <!-- Access gate: shown unless visiting from localhost or with the access token -->
+    <div id="access-gate" class="access-gate" aria-hidden="true" style="display:none">
+      <div class="access-box">
+        <h3>Private preview</h3>
+        <p>Access to this preview is permitted only by scanning the QR code below or by opening the site on your local machine (localhost). If other devices can't reach your machine, paste a public URL (ngrok/LAN) below to make the QR point to that address.</p>
+        <img id="gate-qr" src="" alt="QR to open site" />
+        <div style="margin-top:8px">
+          <input id="share-url" placeholder="https://your-public-url.ngrok.io" style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit" />
+        </div>
+        <div class="gate-actions">
+          <button id="use-share" class="btn-ghost">Use this link</button>
+          <button id="dismiss-gate" class="btn-ghost">I have the link</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <header>
+        <!-- header left intentionally minimal; brand moved into Design Showcase -->
+      </header>
+
+      <section class="hero">
+        <div class="lead" style="text-align:center">
+          <!-- hero text removed per request -->
+        </div>
+        <div style="text-align:right;"></div>
+      </section>
+
+      <section id="designs">
+        <div class="designs-brand">
+          <span class="brand-title">Hyperwebdesignz</span>
+        </div>
+        <div class="pricing-title">Design Showcase</div>
+        <div class="designs-layout">
+          <aside class="design-side">
+            <div class="cart" id="cart-button" role="button" tabindex="0">🛒 <span id="cart-count" style="display:none">0</span></div>
+          </aside>
+
+          <div class="design-grid">
+            <div class="design-card">
+              <div class="design-thumb" style="background:linear-gradient(135deg,#062033,#0b2540);"></div>
+              <div class="design-title">Portfolio Concept</div>
+            </div>
+            <div class="design-card">
+              <div class="design-thumb" style="background:linear-gradient(135deg,#07384a,#0f3b56);"></div>
+              <div class="design-title">Marketing Site</div>
+            </div>
+            <div class="design-card">
+              <div class="design-thumb" style="background:linear-gradient(135deg,#033449,#0b3a5a);"></div>
+              <div class="design-title">E‑commerce UI</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <nav class="center-nav" aria-label="Primary Navigation">
+        <a href="#services">Services</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#designs">Designs</a>
+      </nav>
+
+      <section id="services">
+        <div class="pricing-title">Our Services</div>
+        <div class="pricing-grid">
+          <div class="plan">
+            <h3>Design System</h3>
+            <div class="meta">Visual language, components, and brand tokens.</div>
+            <ul><li>Moodboards & concepts</li><li>Design system</li><li>Figma sources</li></ul>
+            <div class="price-range">Range: $1,200 — $6,000 (small kit → full system)</div>
+          </div>
+          <div class="plan">
+            <h3>Web App</h3>
+            <div class="meta">Fast, accessible, and progressive web apps.</div>
+            <ul><li>SSR / SPA options</li><li>Headless CMS</li><li>Performance audits</li></ul>
+            <div class="price-range">Range: $3,500 — $14,000 (MVP → production)</div>
+          </div>
+          <div class="plan">
+            <h3>E‑commerce</h3>
+            <div class="meta">Scalable storefronts and checkout flows.</div>
+            <ul><li>Custom checkout</li><li>Inventory & payments</li><li>Subscriptions</li></ul>
+            <div class="price-range">Range: $5,000 — $25,000 (starter → enterprise commerce)</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="pricing">
+        
+
+        <div class="pricing-title">Personal</div>
+        <div class="pricing-grid">
+          <div class="plan">
+            <h3>Starter</h3>
+            <div class="price"><div class="amount">$79 — $199</div></div>
+            <div class="meta">One-page portfolio or landing.</div>
+            <ul><li>Custom design</li><li>Hosting + SSL</li><li>Basic SEO</li></ul>
+            <div class="price-range">Options: $79 — $199 /mo (basic → managed)</div>
+            <a class="btn" href="#">Select</a>
+          </div>
+          <div class="plan">
+            <h3>Creator</h3>
+            <div class="price"><div class="amount">$149 — $299</div></div>
+            <div class="meta">Blog, CMS, and monthly updates.</div>
+            <ul><li>CMS integration</li><li>SEO toolkit</li><li>Monthly edits</li></ul>
+            <div class="price-range">Options: $149 — $299 /mo (starter → pro)</div>
+            <a class="btn" href="#">Select</a>
+          </div>
+          <div class="plan">
+            <h3>Premium</h3>
+            <div class="price"><div class="amount">$349 — $699</div></div>
+            <div class="meta">Full site with analytics and priority support.</div>
+            <ul><li>Custom features</li><li>Priority support</li><li>Performance tuning</li></ul>
+            <div class="price-range">Options: $349 — $699 /mo (standard → enterprise-ready)</div>
+            <a class="btn" href="#">Select</a>
+          </div>
+        </div>
+
+        <div class="pricing-title">Company</div>
+        <div class="pricing-grid">
+          <div class="plan">
+            <h3>Startup</h3>
+            <div class="price"><div class="amount">$499 — $999</div></div>
+            <div class="meta">Marketing site + growth tooling.</div>
+            <ul><li>Multiple pages</li><li>Integrations</li><li>Reports</li></ul>
+            <div class="price-range">Options: $499 — $999 /mo (basic → growth)</div>
+            <a class="btn" href="#">Select</a>
+          </div>
+          <div class="plan">
+            <h3>Growth</h3>
+            <div class="price"><div class="amount">$999 — $1,999</div></div>
+            <div class="meta">Scale-ready sites and dashboards.</div>
+            <ul><li>APIs & integrations</li><li>Monitoring</li><li>Priority SLA</li></ul>
+            <div class="price-range">Options: $999 — $1,999 /mo (growth → scale)</div>
+            <a class="btn" href="#">Select</a>
+          </div>
+          <div class="plan">
+            <h3>Enterprise</h3>
+            <div class="price"><div class="amount">Custom</div></div>
+            <div class="meta">Custom infra, SLAs and dedicated team.</div>
+            <ul><li>Private infra</li><li>Dedicated support</li><li>Security audits</li></ul>
+            <a class="btn" href="#contact">Contact Sales</a>
+          </div>
+        </div>
+
+        <div class="pricing-title">E‑commerce</div>
+        <div class="pricing-grid">
+          <div class="plan">
+            <h3>Store</h3>
+            <div class="price"><div class="amount">$699 — $1,299</div></div>
+            <div class="meta">Small store with checkout and payments.</div>
+            <ul><li>Up to 500 SKUs</li><li>Payments</li><li>Inventory sync</li></ul>
+            <div class="price-range">Options: $699 — $1,299 /mo (starter → pro commerce)</div>
+            <a class="btn" href="#">Select</a>
+          </div>
+          <div class="plan">
+            <h3>Marketplace</h3>
+            <div class="price"><div class="amount">$1,499 — $4,999</div></div>
+            <div class="meta">Multi-vendor, escrow, and moderation tools.</div>
+            <ul><li>Multi-vendor</li><li>Payments & escrow</li><li>Reporting</li></ul>
+            <div class="price-range">Options: $1,499 — $4,999 /mo (marketplace tiers)</div>
+            <a class="btn" href="#contact">Select</a>
+          </div>
+          <div class="plan">
+            <h3>Headless</h3>
+            <div class="price"><div class="amount">Custom</div></div>
+            <div class="meta">API-first commerce and custom integrations.</div>
+            <ul><li>Headless APIs</li><li>Scaling</li><li>Enterprise support</li></ul>
+            <a class="btn" href="#contact">Contact Sales</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Selected Projects removed per request -->
+
+      <!-- moved contact toggle/menu: originally placed after pricing; relocated into the contact section below -->
+
+      <section id="contact" style="margin-top:22px">
+        <div class="pricing-title">Let's Build</div>
+
+          <input type="checkbox" id="bottom-menu-toggle" style="display:none" />
+          <label for="bottom-menu-toggle" id="bottom-contact-btn" class="bottom-contact-btn" aria-hidden="false">Contact</label>
+          <div id="bottom-menu" class="bottom-menu" aria-hidden="true">
+              <div style="margin-top:8px;text-align:center">
+                <a href="tel:+17852210870">Call: +1 785-221-0870</a>
+                <a href="mailto:cbancman@gmail.com">Email: cbancman@gmail.com</a>
+              </div>
+          </div>
+      </section>
+
+      <div style="max-width:980px;margin:18px auto">
+        <div class="pricing-title">What clients say</div>
+        <div id="testimonials" class="testimonial-list" aria-live="polite">
+          <!-- testimonials loaded here -->
+        </div>
+      </div>
+
+      <footer>
+        © <span id="year"></span>
+      </footer>
+    </div>
+    <script>
+      document.getElementById('year').textContent=new Date().getFullYear();
+
+      // Simple persistent cart (localStorage) + UI
+      (function(){
+        var STORAGE_KEY = 'fp_cart_v1';
+        function loadCart(){ try{ return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }catch(e){return []} }
+        function saveCart(items){ localStorage.setItem(STORAGE_KEY, JSON.stringify(items||[])); }
+        function updateCount(){ var c = loadCart().length; var el = document.getElementById('cart-count'); if(el){ el.textContent = c; el.style.display = c? 'inline-block':'none'; } }
+
+        function showAddedBadge(planEl){
+          var badge = planEl.querySelector('.added-badge');
+          if(!badge){ badge = document.createElement('span'); badge.className = 'added-badge'; badge.textContent = 'Added'; planEl.appendChild(badge); }
+          planEl.classList.add('added');
+          setTimeout(function(){ planEl.classList.remove('added'); }, 900);
+        }
+
+        function addToCart(planEl){
+          var title = (planEl.querySelector('h3')||{textContent:'Plan'}).textContent.trim();
+          var amountEl = planEl.querySelector('.price .amount');
+          var periodEl = planEl.querySelector('.price .period');
+          var amount = amountEl? amountEl.textContent.trim() : '';
+          var period = periodEl? periodEl.textContent.trim() : '';
+          var items = loadCart();
+          items.push({title: title, price: amount, period: period, addedAt: Date.now()});
+          saveCart(items);
+          updateCount();
+          showAddedBadge(planEl);
+          // visual feedback: pulse the cart briefly
+          try{ var cb = document.getElementById('cart-button'); if(cb){ cb.classList.add('pulse'); setTimeout(function(){ cb.classList.remove('pulse'); }, 900); } }catch(e){}
+        }
+
+        function buildCartModal(){
+          var modal = document.createElement('div'); modal.id = 'cart-modal'; modal.style.position='fixed'; modal.style.inset='0'; modal.style.display='flex'; modal.style.alignItems='center'; modal.style.justifyContent='center'; modal.style.background='rgba(0,0,0,0.45)'; modal.style.zIndex='9999';
+          var box = document.createElement('div'); box.style.maxWidth='720px'; box.style.width='90%'; box.style.background='rgba(255,255,255,0.03)'; box.style.backdropFilter='blur(10px)'; box.style.border='1px solid rgba(255,255,255,0.04)'; box.style.padding='18px'; box.style.borderRadius='12px'; box.style.color='white';
+          var h = document.createElement('h3'); h.textContent='Cart'; h.style.marginTop='0'; box.appendChild(h);
+          var list = document.createElement('div'); list.id='cart-list'; list.style.marginBottom='12px'; box.appendChild(list);
+          var clearBtn = document.createElement('button'); clearBtn.textContent='Clear Cart'; clearBtn.style.marginRight='8px'; clearBtn.addEventListener('click', function(){ localStorage.removeItem(STORAGE_KEY); updateCount(); renderList(); });
+          var closeBtn = document.createElement('button'); closeBtn.textContent='Close'; closeBtn.addEventListener('click', closeModal);
+          box.appendChild(clearBtn); box.appendChild(closeBtn);
+          modal.appendChild(box);
+          modal.addEventListener('click', function(e){ if(e.target===modal) closeModal(); });
+          function renderList(){
+            var items = loadCart();
+            if(!items.length){ list.innerHTML = '<div style="opacity:0.7">Cart is empty</div>'; return; }
+            var total = 0;
+            list.innerHTML = items.map(function(it,i){
+              var priceHtml = it.price ? '<div style="color:var(--muted);font-size:13px;margin-top:6px">' + (it.price||'') + ' ' + (it.period||'') + '</div>' : '';
+              // parse numeric portion for a rough total (ignore 'Custom')
+              var num = 0;
+              if(it.price){
+                var numStr = String(it.price).replace(/[^0-9\.-]+/g,'');
+                if(numStr) { num = parseFloat(numStr); if(isNaN(num)) num = 0; }
+              }
+              total += num;
+              return '<div style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.02)">' + (i+1) + '. <strong>' + (it.title||'Plan') + '</strong>' + priceHtml + '</div>';
+            }).join('');
+            if(total>0){
+              list.innerHTML += '<div style="margin-top:12px;font-weight:900;color:var(--accent);font-size:16px">Estimated total: $' + total.toLocaleString() + '</div>';
+            }
+          }
+          function closeModal(){ modal.remove(); }
+          modal.renderList = renderList;
+          return modal;
+        }
+
+        function openCartModal(){ var existing = document.getElementById('cart-modal'); if(existing) return; var m = buildCartModal(); document.body.appendChild(m); m.renderList(); }
+
+        // wire plans
+        var plans = Array.prototype.slice.call(document.querySelectorAll('.plan'));
+        plans.forEach(function(p){
+          p.setAttribute('role','button'); p.setAttribute('tabindex','0');
+          var amountEl = p.querySelector('.price .amount');
+          var isCustom = amountEl && amountEl.textContent.trim().toLowerCase() === 'custom';
+
+          p.addEventListener('click', function(e){
+            if(e.target && (e.target.tagName === 'A' || e.target.closest('a'))) return;
+            if(isCustom){ openCustomModal(p); return; }
+            addToCart(p);
+          });
+
+          p.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); if(isCustom){ openCustomModal(p); } else { addToCart(p); } } });
+        });
+
+        // Build and open a custom pricing modal for plans labelled 'Custom'
+        function openCustomModal(planEl){
+          var title = (planEl.querySelector('h3')||{textContent:'Custom Plan'}).textContent.trim();
+          var modal = document.createElement('div'); modal.id='custom-modal'; modal.style.position='fixed'; modal.style.inset='0'; modal.style.display='flex'; modal.style.alignItems='center'; modal.style.justifyContent='center'; modal.style.background='rgba(0,0,0,0.5)'; modal.style.zIndex='9999';
+          var box = document.createElement('div'); box.style.maxWidth='720px'; box.style.width='92%'; box.style.background='rgba(255,255,255,0.03)'; box.style.backdropFilter='blur(10px)'; box.style.border='1px solid rgba(255,255,255,0.04)'; box.style.padding='18px'; box.style.borderRadius='12px'; box.style.color='white';
+
+          var h = document.createElement('h3'); h.textContent='Customize — ' + title; h.style.marginTop='0'; box.appendChild(h);
+
+          // slider row
+          var sliderRow = document.createElement('div'); sliderRow.style.margin='12px 0';
+          var sliderLabel = document.createElement('div'); sliderLabel.textContent='Base budget'; sliderLabel.style.marginBottom='6px'; sliderRow.appendChild(sliderLabel);
+          var priceDisplay = document.createElement('div'); priceDisplay.style.fontWeight='900'; priceDisplay.style.color='var(--accent)'; priceDisplay.style.marginBottom='8px'; priceDisplay.textContent='$10,000';
+          sliderRow.appendChild(priceDisplay);
+          var slider = document.createElement('input'); slider.type='range'; slider.min='3000'; slider.max='50000'; slider.step='250'; slider.value='10000'; slider.style.width='100%'; sliderRow.appendChild(slider);
+          box.appendChild(sliderRow);
+
+          // options
+          var opts = [
+            {id:'opt-support',label:'Priority support',price:2000,desc:'Faster SLA and a prioritized support channel for urgent issues.'},
+            {id:'opt-integrations',label:'Extra integrations',price:1500,desc:'Connectors for third-party APIs, payment gateways, and marketing tools.'},
+            {id:'opt-dedicated',label:'Dedicated engineer',price:4000,desc:'A named engineer available for ongoing changes and faster turnarounds.'},
+            {id:'opt-perf',label:'Performance tuning',price:2500,desc:'Audit and optimizations for load times, caching and CDN configuration.'}
+          ];
+          var optsWrap = document.createElement('div'); optsWrap.style.margin='8px 0 12px';
+          opts.forEach(function(o){
+            var optRow = document.createElement('div'); optRow.style.marginBottom='10px';
+            var row = document.createElement('label'); row.style.display='flex'; row.style.alignItems='center'; row.style.gap='8px'; row.style.marginBottom='6px'; row.style.cursor='pointer';
+            var cb = document.createElement('input'); cb.type='checkbox'; cb.dataset.add = o.price; cb.id = o.id;
+            var span = document.createElement('span'); span.textContent = o.label + ' (+$' + o.price.toLocaleString() + ')'; span.style.color='var(--muted)'; span.style.fontWeight='700';
+            row.appendChild(cb); row.appendChild(span);
+            var desc = document.createElement('div'); desc.textContent = o.desc; desc.style.color='var(--muted)'; desc.style.fontSize='13px'; desc.style.marginLeft='28px'; desc.style.opacity='0.95';
+            optRow.appendChild(row); optRow.appendChild(desc); optsWrap.appendChild(optRow);
+          });
+          box.appendChild(optsWrap);
+
+          // total and actions
+          var totalRow = document.createElement('div'); totalRow.style.display='flex'; totalRow.style.justifyContent='space-between'; totalRow.style.alignItems='center'; totalRow.style.marginTop='12px';
+          var totalLabel = document.createElement('div'); totalLabel.textContent='Estimated total'; totalLabel.style.color='var(--muted)';
+          var totalVal = document.createElement('div'); totalVal.style.fontWeight='900'; totalVal.style.color='var(--accent)'; totalVal.textContent='$' + Number(slider.value).toLocaleString();
+          totalRow.appendChild(totalLabel); totalRow.appendChild(totalVal);
+          box.appendChild(totalRow);
+
+          var actions = document.createElement('div'); actions.style.marginTop='14px'; actions.style.display='flex'; actions.style.gap='8px';
+          var addBtn = document.createElement('button'); addBtn.textContent='Add to Cart'; addBtn.className='btn-primary';
+          var contactBtn = document.createElement('button'); contactBtn.textContent='Contact Sales'; contactBtn.style.background='transparent'; contactBtn.style.color='var(--accent)'; contactBtn.style.border='1px solid rgba(255,255,255,0.04)'; contactBtn.style.borderRadius='8px'; contactBtn.style.padding='8px 12px';
+          var closeBtn = document.createElement('button'); closeBtn.textContent='Close'; closeBtn.style.marginLeft='auto'; closeBtn.style.background='transparent'; closeBtn.style.color='var(--muted)'; closeBtn.style.border='0';
+          actions.appendChild(addBtn); actions.appendChild(contactBtn); actions.appendChild(closeBtn);
+          box.appendChild(actions);
+
+          modal.appendChild(box); document.body.appendChild(modal);
+
+          function computeTotal(){
+            var base = Number(slider.value)||0; var extra = 0;
+            Array.prototype.slice.call(optsWrap.querySelectorAll('input[type=checkbox]')).forEach(function(cb){ if(cb.checked) extra += Number(cb.dataset.add)||0; });
+            var tot = base + extra; priceDisplay.textContent = '$' + Number(base).toLocaleString(); totalVal.textContent = '$' + Number(tot).toLocaleString(); return tot;
+          }
+
+          slider.addEventListener('input', computeTotal);
+          optsWrap.addEventListener('change', computeTotal);
+
+          function closeModal(){ modal.remove(); }
+          closeBtn.addEventListener('click', closeModal);
+          contactBtn.addEventListener('click', function(){ closeModal(); window.location.hash = '#contact'; });
+
+          addBtn.addEventListener('click', function(){
+            var tot = computeTotal();
+            try{
+              var items = loadCart(); items.push({title: title + ' (custom)', price: '$' + Number(tot).toLocaleString(), period: ''}); saveCart(items); updateCount();
+              var cb = document.getElementById('cart-button'); if(cb){ cb.classList.add('pulse'); setTimeout(function(){ cb.classList.remove('pulse'); }, 900); }
+            }catch(e){}
+            closeModal();
+          });
+
+          modal.addEventListener('click', function(e){ if(e.target===modal) closeModal(); });
+          // initial compute
+          computeTotal();
+        }
+
+        // cart button
+        var cartBtn = document.getElementById('cart-button');
+        if(cartBtn){ cartBtn.addEventListener('click', openCartModal); cartBtn.addEventListener('keydown', function(e){ if(e.key==='Enter' || e.key===' ') openCartModal(); }); }
+
+        // initialize cart UI
+        updateCount();
+
+        // contact/brief form removed per request (submit/download handlers removed)
+
+        // --- Testimonials loader ---
+        (function loadTestimonials(){
+          var container = document.getElementById('testimonials');
+          if(!container) return;
+          fetch('/data/testimonials.json').then(function(r){ if(!r.ok) throw new Error('no file'); return r.json(); }).then(function(json){
+            container.innerHTML = (json||[]).slice(0,6).map(function(t){ return '<div class="testimonial"><strong>'+ (t.name||'Client') +'</strong><div style="opacity:.9;margin-top:6px">'+ (t.text||'') +'</div></div>'; }).join('') || '';
+          }).catch(function(){ container.innerHTML = ''; });
+        })();
+
+        // --- bottom contact button/menu toggle ---
+        (function(){
+          var btn = document.getElementById('bottom-contact-btn');
+          var menu = document.getElementById('bottom-menu');
+          var toggle = document.getElementById('bottom-menu-toggle');
+          if(!btn || !menu || !toggle) return;
+          // keep JS behavior in sync with the checkbox state
+          function sync(){
+            var open = toggle.checked;
+            if(open){ menu.classList.add('open'); menu.setAttribute('aria-hidden','false'); btn.setAttribute('aria-expanded','true'); }
+            else { menu.classList.remove('open'); menu.setAttribute('aria-hidden','true'); btn.setAttribute('aria-expanded','false'); }
+          }
+          toggle.addEventListener('change', sync);
+          // clicking the label toggles the checkbox automatically; add Escape support
+          document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ toggle.checked = false; sync(); } });
+        })();
+
+        // entrance animations: stagger nav links, titles, design cards and plan cards
+        setTimeout(function(){
+          var navLinks = Array.prototype.slice.call(document.querySelectorAll('.center-nav a'));
+          navLinks.forEach(function(a,i){ setTimeout(function(){ a.classList.add('animate-in'); }, i * 80); });
+          var titles = Array.prototype.slice.call(document.querySelectorAll('.pricing-title, .design-title'));
+          titles.forEach(function(t,i){ setTimeout(function(){ t.classList.add('animate-in'); }, 120 + i * 80); });
+          var cards = Array.prototype.slice.call(document.querySelectorAll('.design-card'));
+          cards.forEach(function(c,i){ setTimeout(function(){ c.classList.add('animate-in'); }, 180 + i * 120); });
+          var plans = Array.prototype.slice.call(document.querySelectorAll('.plan'));
+          plans.forEach(function(p,i){ setTimeout(function(){ p.classList.add('animate-in'); }, 320 + i * 90); });
+        }, 220);
+
+        // hero CTA removed; no-op
+
+      })();
+    </script>
+    <!-- fixed QR (bottom-left) -->
+    <div class="qr-fixed" id="fixed-qr">
+      <div class="qr-toggle" id="qr-toggle" title="QR & contact">
+        <div class="dot"></div>
+      </div>
+      <div id="qr-hint" class="qr-hint">Click here for QR code</div>
+      <div class="qr-panel" id="qr-panel" role="dialog" aria-hidden="true">
+        <a id="qr-panel-link" href="/" title="Go to home"><img id="fixed-qr-img" class="qr-img-fixed" alt="Scan to visit"/></a>
+        <div class="qr-caption">Scan or click to open</div>
+      </div>
+    </div>
+    <script>
+      // Contact dropdown + Access: tokenized QR generation and client-side access gate
+      (function(){
+        var ACCESS_TOKEN = 'fp-7b3c9a2d';
+
+        function urlWithToken(u){ try{ var url = new URL(u, window.location.href); if(!url.searchParams.get('access')) url.searchParams.set('access', ACCESS_TOKEN); return url.toString(); }catch(e){ return u + (u.indexOf('?')>-1? '&':'?') + 'access=' + ACCESS_TOKEN; } }
+
+        var toggle = document.getElementById('bottom-menu-toggle');
+        var menu = document.getElementById('bottom-menu');
+        var btn = document.getElementById('bottom-contact-btn');
+        var fixedQrImg = document.getElementById('fixed-qr-img');
+        var qrPanel = document.getElementById('qr-panel');
+        var qrToggle = document.getElementById('qr-toggle');
+
+        function qrApiFor(data){ var color = '00d4ff'; return 'https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=' + encodeURIComponent(data) + '&color=' + color; }
+
+        // allow overriding the share base with a saved public URL (ngrok or LAN IP)
+        function getSavedShareBase(){ try{ var b = sessionStorage.getItem('fp_share_base'); return b && b.length? b : null; }catch(e){ return null; } }
+        var shareBase = getSavedShareBase() || window.location.origin;
+        var defaultUrl = shareBase + window.location.pathname;
+        var currentShareUrl = urlWithToken(window.location.href || defaultUrl);
+        if(fixedQrImg){ try{ fixedQrImg.src = qrApiFor(currentShareUrl); }catch(e){} }
+
+        // Access guard (client-side): allow localhost, token in URL, or prior session grant
+        function isLocal(){ var h = location.hostname; return h === 'localhost' || h === '127.0.0.1' || h === '' || h === '::1'; }
+        function hasToken(){ try{ var u = new URL(window.location.href); if(u.searchParams.get('access') === ACCESS_TOKEN) return true; var h = window.location.hash || ''; // support tokens in hash like #access=...
+          var m = h.match(/access=([^&]+)/); if(m && decodeURIComponent(m[1]) === ACCESS_TOKEN) return true; return false; }catch(e){ try{ var h = window.location.hash || ''; var m = h.match(/access=([^&]+)/); return !!(m && decodeURIComponent(m[1]) === ACCESS_TOKEN); }catch(e){ return false; } } }
+        function isGranted(){ return sessionStorage.getItem('fp_access_granted') === '1'; }
+
+        function grantAccess(){ sessionStorage.setItem('fp_access_granted','1'); hideGate(); }
+        function hideGate(){ var gate = document.getElementById('access-gate'); if(gate){ gate.style.display='none'; gate.setAttribute('aria-hidden','true'); } }
+        function showGate(){ var gate = document.getElementById('access-gate'); if(gate){ gate.style.display='flex'; gate.setAttribute('aria-hidden','false'); var gqr = document.getElementById('gate-qr'); if(gqr){ gqr.src = qrApiFor(urlWithToken(window.location.origin + window.location.pathname)); } } }
+
+        if(isLocal() || hasToken() || isGranted()){ if(hasToken()) grantAccess(); else hideGate(); }
+        else { showGate(); }
+
+        var dismiss = document.getElementById('dismiss-gate'); if(dismiss){ dismiss.addEventListener('click', function(){ alert('Open the link that includes the access token, or scan the QR code to get the link.'); }); }
+        var useShare = document.getElementById('use-share');
+        if(useShare){ useShare.addEventListener('click', function(){ var val = (document.getElementById('share-url')||{}).value||''; if(!val) return alert('Paste a public URL to use (ngrok or LAN IP)'); try{ var u = new URL(val); // valid
+              sessionStorage.setItem('fp_share_base', u.origin); // save origin only
+              // regenerate gate QR and fixed QR
+              var gqr = document.getElementById('gate-qr'); if(gqr){ gqr.src = qrApiFor(urlWithToken(u.origin + window.location.pathname)); }
+              if(fixedQrImg){ fixedQrImg.src = qrApiFor(urlWithToken(u.origin + window.location.pathname)); }
+              alert('Share URL saved. Devices scanning the QR will receive that link.');
+            }catch(e){ alert('Invalid URL. Use full URL including protocol, e.g. https://abcd.ngrok.io'); } }); }
+
+        // keep QR panel visible while pointer is anywhere inside the QR container
+        var qrContainer = document.getElementById('fixed-qr');
+        if(qrContainer && qrPanel){
+          qrContainer.addEventListener('pointerenter', function(){ qrPanel.classList.add('show'); qrPanel.setAttribute('aria-hidden','false'); });
+          qrContainer.addEventListener('pointerleave', function(){ qrPanel.classList.remove('show'); qrPanel.setAttribute('aria-hidden','true'); });
+          // clicking the toggle still toggles for touch users
+          if(qrToggle){ qrToggle.addEventListener('click', function(e){ e.stopPropagation(); qrPanel.classList.toggle('show'); qrPanel.setAttribute('aria-hidden', qrPanel.classList.contains('show') ? 'false':'true'); }); }
+        }
+
+        // panel link should navigate including token
+        var panelLink = document.getElementById('qr-panel-link'); if(panelLink){ panelLink.addEventListener('click', function(e){ e.preventDefault(); var target = urlWithToken(window.location.origin + '/'); window.location.href = target; if(toggle){ toggle.checked = false; if(menu) menu.classList.remove('open'); } }); }
+
+        // outside click closes contact menu
+        document.addEventListener('click', function(e){
+          if(!toggle || !menu || !btn) return;
+          if(toggle.checked){
+            var target = e.target;
+            if(!menu.contains(target) && !btn.contains(target)){
+              toggle.checked = false;
+              menu.classList.remove('open');
+              try{ if(window.location.hash) window.location.hash = ''; window.scrollTo({top:0,left:0,behavior:'smooth'}); }catch(e){}
+            }
+          }
+        }, true);
+
+        if(hasToken()) grantAccess();
+
+      })();
+    </script>
+    <script>
+      // Inject 'More info' toggles into every design card and pricing plan
+      (function(){
+        function makeMoreFor(card){
+          if(card.querySelector('.more-btn')) return; // already added
+          var btn = document.createElement('button'); btn.className='more-btn'; btn.type='button'; btn.textContent='More info';
+          var more = document.createElement('div'); more.className='more-info';
+
+          // Generate content depending on card type
+          if(card.classList.contains('plan')){
+            var meta = card.querySelector('.meta');
+            var pr = card.querySelector('.price-range');
+            var list = card.querySelector('ul');
+            var titleText = (card.querySelector('h3')||{}).textContent || '';
+            // sensible defaults per plan name
+            var delivery = 'Varies — will confirm after scoping';
+            var revisions = 'Includes 2 revisions';
+            if(/starter/i.test(titleText)){ delivery = '1–2 weeks'; revisions = '2 revisions'; }
+            else if(/creator/i.test(titleText)){ delivery = '2–4 weeks'; revisions = '4 revisions'; }
+            else if(/premium/i.test(titleText)){ delivery = '4–8 weeks'; revisions = '6 revisions'; }
+            else if(/startup/i.test(titleText)){ delivery = '4–10 weeks'; revisions = '5 revisions'; }
+            else if(/growth/i.test(titleText)){ delivery = '8–16 weeks'; revisions = '6–8 revisions'; }
+            else if(/store|e\u2011commerce|commerce/i.test(titleText)){ delivery = '3–8 weeks'; revisions = '3–5 revisions'; }
+            else if(/marketplace/i.test(titleText)){ delivery = '12–24 weeks'; revisions = '8+ revisions'; }
+
+            var html = '';
+            if(meta) html += '<div class="more-desc"><strong>Summary:</strong> ' + meta.innerHTML + '</div>';
+            if(pr) html += '<div class="more-desc" style="margin-top:6px"><strong>Price range:</strong> ' + pr.innerHTML + '</div>';
+            if(list) html += '<div class="more-desc" style="margin-top:6px"><strong>Includes:</strong> ' + list.outerHTML + '</div>';
+            html += '<div class="more-desc" style="margin-top:8px"><strong>Delivery:</strong> ' + delivery + '</div>';
+            html += '<div class="more-desc" style="margin-top:6px"><strong>Revisions:</strong> ' + revisions + '</div>';
+            more.innerHTML = html || '<div class="more-desc">No additional details</div>';
+          } else {
+            var title = card.querySelector('.design-title');
+            var thumb = card.querySelector('.design-thumb');
+            var titleText = (title && title.textContent) || '';
+            var delivery = 'Varies';
+            var revisions = '2 revisions';
+            if(/portfolio/i.test(titleText)){ delivery = '2–4 days'; revisions = '2 revisions'; }
+            else if(/marketing/i.test(titleText)){ delivery = '1–2 weeks'; revisions = '3 revisions'; }
+            else if(/e\u2011commerce|ecommerce|commerce/i.test(titleText)){ delivery = '2–4 weeks'; revisions = '3–5 revisions'; }
+
+            var html = '';
+            if(title) html += '<div class="more-desc"><strong>' + (title.textContent||'') + '</strong></div>';
+            html += '<div class="more-desc" style="margin-top:6px">Style notes and variations available. Request source files, responsive variants, and color palette options when ordering.</div>';
+            html += '<div class="more-desc" style="margin-top:8px"><strong>Delivery:</strong> ' + delivery + '</div>';
+            html += '<div class="more-desc" style="margin-top:6px"><strong>Revisions:</strong> ' + revisions + '</div>';
+            more.innerHTML = html;
+          }
+
+          btn.addEventListener('click', function(){ more.classList.toggle('open'); btn.textContent = more.classList.contains('open') ? 'Less info' : 'More info'; });
+          card.appendChild(btn); card.appendChild(more);
+        }
+
+        function init(){
+          Array.prototype.slice.call(document.querySelectorAll('.design-card, .plan')).forEach(makeMoreFor);
+        }
+
+        // run after DOM is ready
+        if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', init); } else { init(); }
+      })();
+    </script>
+  </body>
+</html>

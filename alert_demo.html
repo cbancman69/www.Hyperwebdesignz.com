@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AlertDialog Demo</title>
+  <link rel="stylesheet" href="/alert-dialog.css">
+  <style>body{font-family:Inter,system-ui,Arial;background:#f4f6fb;padding:28px;color:#062324}.demo-wrap{max-width:720px;margin:0 auto}</style>
+</head>
+<body>
+  <div class="demo-wrap">
+    <h2>AlertDialog (vanilla) Demo</h2>
+    <p>Click the button to open the alert dialog. This is a lightweight accessible port of the Radix UI AlertDialog component.</p>
+    <button data-alert-trigger data-alert-title="Delete booking" data-alert-desc="Are you sure you want to delete this booking? This action cannot be undone." data-alert-action="Delete" data-alert-cancel="Cancel" style="padding:10px 14px;border-radius:8px;background:#9b00ff;color:#fff;border:0;cursor:pointer">Open Alert</button>
+
+    <div style="height:20px"></div>
+    <button id="openProg" style="padding:10px 14px;border-radius:8px;background:#4b5563;color:#fff;border:0;cursor:pointer">Open Programmatically</button>
+  </div>
+
+  <script src="/alert-dialog.js"></script>
+  <script>
+    document.getElementById('openProg').addEventListener('click', ()=>{
+      AlertDialog.open({
+        title: 'Sign out',
+        description: 'Do you want to sign out now?',
+        actionText: 'Sign out',
+        cancelText: 'Stay signed in',
+        onAction: ()=>{ alert('Signed out (simulated)'); }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ride With Ree — App</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#f8fafc;--card:#fff;--accent:#9b00ff;--accent-2:#cc88ff}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;background:var(--bg);color:#062324}
+    .app{min-height:100vh;display:flex;flex-direction:column}
+    header{padding:18px 20px;background:linear-gradient(90deg,rgba(155,0,255,0.07),rgba(204,136,255,0.03));border-bottom:1px solid rgba(0,0,0,0.03)}
+    .brand{font-weight:800;color:var(--accent);font-size:20px}
+    main{flex:1;padding:18px;display:flex;gap:18px}
+    .panel{background:var(--card);border-radius:12px;padding:14px;box-shadow:0 10px 30px rgba(2,18,23,0.04);flex:1}
+    .map{flex:2;min-height:420px;border-radius:12px;background:linear-gradient(180deg,#eef6ff,#fff);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent)}
+    .rides{flex:1;min-width:260px}
+    .ride{padding:10px;border-radius:8px;border:1px solid rgba(2,18,23,0.04);margin-bottom:10px}
+    .bottom-nav{position:fixed;left:0;right:0;bottom:0;height:64px;display:flex;align-items:center;justify-content:space-around;background:linear-gradient(90deg,rgba(155,0,255,0.06),rgba(204,136,255,0.02));border-top:1px solid rgba(0,0,0,0.03)}
+    .nav-btn{display:flex;flex-direction:column;align-items:center;font-size:12px;color:#123}
+    .badge{background:var(--accent);color:#fff;padding:4px 8px;border-radius:999px;font-weight:700}
+    .muted{color:#556}
+    @media (max-width:900px){main{flex-direction:column}.map{min-height:300px}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="brand">Ride With Ree</div>
+    </header>
+
+    <main>
+      <div class="panel map" id="map">Map: waiting for driver location...</div>
+
+      <aside class="panel rides">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <div style="font-weight:700">My Rides</div>
+          <div id="rides-count" class="muted">0</div>
+        </div>
+        <div id="rides-list"></div>
+        <div style="height:12px"></div>
+        <div style="font-size:13px;color:#445">Customer phone (saved): <span id="cust-phone" class="muted">—</span></div>
+      </aside>
+    </main>
+
+    <div class="bottom-nav" role="navigation">
+      <div class="nav-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 12h18" stroke="#123" stroke-width="2" stroke-linecap="round"/></svg><div style="font-size:11px">Map</div></div>
+      <div class="nav-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="#123" stroke-width="2" stroke-linecap="round"/></svg><div style="font-size:11px">Rides</div></div>
+      <div class="nav-btn"><div class="badge" id="active-badge">0</div><div style="font-size:11px">Active</div></div>
+    </div>
+  </div>
+
+<script>
+// Minimal React-like behavior implemented with vanilla JS
+(function(){
+  let currentUser = null;
+  let customerPhone = localStorage.getItem('ride_with_ree_customer_phone') || null;
+  const mapEl = document.getElementById('map');
+  const ridesListEl = document.getElementById('rides-list');
+  const ridesCountEl = document.getElementById('rides-count');
+  const custPhoneEl = document.getElementById('cust-phone');
+  const activeBadge = document.getElementById('active-badge');
+
+  custPhoneEl.textContent = customerPhone || 'not set';
+
+  // Simulated driver location
+  let driverLocation = [39.0997, -94.5786];
+
+  function renderMap(){
+    mapEl.textContent = 'Driver at: ' + driverLocation[0].toFixed(5) + ', ' + driverLocation[1].toFixed(5);
+  }
+
+  // Fetch rides from backend and filter by phone if present
+  async function fetchMyRides(){
+    try{
+      const resp = await fetch('/api/bookings');
+      if(!resp.ok) return [];
+      const all = await resp.json();
+      const phone = (currentUser && currentUser.data && currentUser.data.phone) || customerPhone;
+      const my = phone ? all.filter(r => r.name && r.name.includes(phone) || (r.customer_phone && r.customer_phone===phone)) : [];
+      return my;
+    }catch(e){return []}
+  }
+
+  async function refresh(){
+    const myRides = await fetchMyRides();
+    const active = myRides.filter(r=> ['requested','assigned','confirmed','pending'].includes(r.status || ''));
+    ridesListEl.innerHTML = '';
+    if(myRides.length===0){ ridesListEl.innerHTML = '<div class="muted">No rides found</div>' }
+    myRides.forEach(r=>{
+      const d = document.createElement('div'); d.className='ride';
+      d.innerHTML = '<div style="font-weight:700">'+(r.name||'Ride')+'</div>'+
+                    '<div class="muted">'+(r.pickup||'pickup')+' → '+(r.destination||'dest')+'</div>'+
+                    '<div style="margin-top:6px">Status: <strong>'+ (r.status||'unknown') +'</strong></div>';
+      ridesListEl.appendChild(d);
+    });
+    ridesCountEl.textContent = myRides.length;
+    activeBadge.textContent = active.length;
+  }
+
+  // simulate auth.me (base44) – returns null in this minimal demo
+  async function getUser(){
+    try{
+      // placeholder: could call /api/me if implemented
+      return null;
+    }catch(e){return null}
+  }
+
+  // Initialize
+  (async function init(){
+    currentUser = await getUser();
+    if(customerPhone) custPhoneEl.textContent = customerPhone;
+    await refresh();
+    renderMap();
+
+    // periodic updates
+    setInterval(async ()=>{
+      // jitter driver location
+      driverLocation = [driverLocation[0] + (Math.random()-0.5)*0.001, driverLocation[1] + (Math.random()-0.5)*0.001];
+      renderMap();
+      await refresh();
+    }, 5000);
+
+    // update meta tags and title
+    document.title = 'Ride With Ree - Premium Transportation Services';
+    const setMeta = (name,content)=>{
+      let el = document.querySelector('meta[name="'+name+'"]');
+      if(!el){ el = document.createElement('meta'); el.setAttribute('name', name); document.head.appendChild(el); }
+      el.setAttribute('content', content);
+    };
+    setMeta('description', 'Book your ride with Ride With Ree. Professional, reliable transportation at your service.');
+    setMeta('og:title','Ride With Ree - Premium Transportation Services');
+  })();
+
+})();
+</script>
+</body>
+</html>

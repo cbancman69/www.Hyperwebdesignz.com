@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Flux — Futuristic Social Feed (backup)</title>
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" href="/assets/future.css" />
+</head>
+<body>
+  <div id="app" class="app-root">
+    <aside class="sidebar">
+      <div class="brand">Flux</div>
+      <nav>
+        <button id="homeBtn" class="nav-btn active">Feed</button>
+        <button id="profileBtn" class="nav-btn">Profile</button>
+        <button id="exploreBtn" class="nav-btn">Explore</button>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="search"><input id="search" placeholder="Search"/></div>
+        <div class="actions"><button id="loginBtn" class="btn small">Login</button></div>
+      </header>
+
+      <section class="composer">
+        <textarea id="postText" placeholder="What's happening in the future?" rows="3"></textarea>
+        <div class="composer-actions">
+          <button id="postBtn" class="btn primary">Post</button>
+        </div>
+      </section>
+
+      <section id="feed" class="feed"></section>
+    </main>
+  </div>
+
+  <script src="/assets/feed.js" defer></script>
+</body>
+</html>

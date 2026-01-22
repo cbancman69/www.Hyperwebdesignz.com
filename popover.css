@@ -1,0 +1,8 @@
+:root{--po-bg:#0f1724;--po-fg:#e6eef8;--po-border:rgba(255,255,255,0.03);--po-accent:#8b5cf6}
+.po{position:absolute;min-width:200px;background:var(--po-bg);color:var(--po-fg);border:1px solid var(--po-border);box-shadow:0 10px 30px rgba(2,6,23,0.7);padding:10px;border-radius:10px;z-index:9999}
+.po.hidden{display:none}
+.po .po-header{font-weight:600;margin-bottom:6px}
+.po .po-body{font-size:14px;color:#cbd5e1}
+.po .po-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:8px}
+.po .po-btn{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:6px 10px;border-radius:8px;color:var(--po-fg);cursor:pointer}
+.po .po-btn.primary{background:linear-gradient(90deg,var(--po-accent),#6d28d9);border:none;color:white}

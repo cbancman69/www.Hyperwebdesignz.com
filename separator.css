@@ -1,0 +1,10 @@
+/* Separator utilities (horizontal and vertical) */
+:root{--sep-color:rgba(255,255,255,0.04);--sep-muted:rgba(255,255,255,0.02)}
+.sep-horizontal{height:1px;width:100%;background:var(--sep-color);display:block}
+.sep-horizontal.muted{background:var(--sep-muted)}
+.sep-vertical{width:1px;height:100%;background:var(--sep-color);display:inline-block}
+.sep-vertical.muted{background:var(--sep-muted)}
+
+/* spacing helpers for demos */
+.demo-row{display:flex;align-items:center;gap:12px;padding:12px;background:transparent;border-radius:8px}
+.demo-box{padding:8px 12px;border-radius:8px;background:rgba(255,255,255,0.02);color:#dbeafe}

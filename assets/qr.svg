@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-label="QR code">
+  <rect width="256" height="256" fill="none"/>
+  <g fill="#0aa89e">
+    <rect x="16" y="16" width="56" height="56" rx="6"/>
+    <rect x="184" y="16" width="56" height="56" rx="6"/>
+    <rect x="16" y="184" width="56" height="56" rx="6"/>
+  </g>
+  <g fill="#08292b">
+    <!-- simplified decorative QR blocks -->
+    <rect x="88" y="32" width="24" height="24"/>
+    <rect x="120" y="32" width="16" height="16"/>
+    <rect x="88" y="64" width="48" height="16"/>
+    <rect x="160" y="72" width="24" height="24"/>
+    <rect x="48" y="120" width="24" height="24"/>
+    <rect x="80" y="120" width="16" height="16"/>
+    <rect x="112" y="120" width="24" height="24"/>
+    <rect x="152" y="120" width="32" height="16"/>
+    <rect x="32" y="152" width="16" height="16"/>
+    <rect x="56" y="152" width="24" height="24"/>
+    <rect x="96" y="152" width="24" height="24"/>
+    <rect x="136" y="152" width="24" height="24"/>
+  </g>
+</svg>

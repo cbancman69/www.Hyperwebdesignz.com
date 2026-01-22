@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>My Rides — Ride With Ree</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg-from:#A8E0E8;--bg-via:#B0E8F0;--bg-to:#C0F0F8;--accent:#a855f7}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,var(--bg-from),var(--bg-via),var(--bg-to));color:#062324}
+    .wrap{min-height:100vh;padding:28px;position:relative}
+    .container{max-width:960px;margin:0 auto}
+    .title{font-size:28px;font-weight:800;color:#062234;margin-bottom:6px}
+    .muted{color:#556}
+    .rides{margin-top:18px;display:flex;flex-direction:column;gap:12px}
+    .ride{background:#fff;border-radius:10px;padding:12px;box-shadow:0 8px 24px rgba(2,18,23,0.04);display:flex;justify-content:space-between;align-items:center}
+    .ride .meta{max-width:70%}
+    .ride .meta h4{margin:0 0 6px 0}
+    .badge{background:var(--accent);color:#fff;padding:6px 10px;border-radius:999px;font-weight:700}
+    .actions{display:flex;gap:8px}
+    .btn{padding:8px 10px;border-radius:8px;border:0;cursor:pointer}
+    .btn.primary{background:linear-gradient(90deg,#7b2ce0,#a855f7);color:#fff}
+    .btn.ghost{background:#fff;border:1px solid #eef}
+    .notif{background:#fff6e6;border-left:4px solid #f6b26b;padding:10px;border-radius:8px}
+    .small{font-size:13px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="container">
+      <div class="title">My Rides</div>
+      <div class="muted">Track your active rides, confirm pricing, send feedback and receipts.</div>
+
+      <div style="margin-top:18px">
+        <label class="muted small">Saved customer phone (local)</label>
+        <div id="cust-phone" style="margin-top:6px;font-weight:700">—</div>
+        <div style="margin-top:8px"><input id="phone-input" placeholder="Enter phone to filter (e.g. 555-1234)" style="padding:8px;border-radius:8px;border:1px solid #ddd;width:260px"/><button id="save-phone" class="btn" style="margin-left:8px">Save</button></div>
+      </div>
+
+      <div id="notifications" style="margin-top:14px"></div>
+
+      <div class="rides" id="rides"></div>
+
+      <div style="margin-top:18px" class="muted small">Tip: If you want the real driver features, open the Driver Dashboard at <a href="/driver_dashboard.html?driver=true">Driver Dashboard</a>.</div>
+    </div>
+  </div>
+
+<script>
+(function(){
+  const ridesEl = document.getElementById('rides');
+  const notifEl = document.getElementById('notifications');
+  const phoneInput = document.getElementById('phone-input');
+  const savePhone = document.getElementById('save-phone');
+  const custPhoneEl = document.getElementById('cust-phone');
+
+  let customerPhone = localStorage.getItem('ride_with_ree_customer_phone') || '';
+  if(customerPhone){ phoneInput.value = customerPhone; custPhoneEl.textContent = customerPhone; }
+
+  savePhone.addEventListener('click', ()=>{
+    const v = phoneInput.value.trim();
+    if(!v) return alert('Enter a phone');
+    localStorage.setItem('ride_with_ree_customer_phone', v);
+    customerPhone = v; custPhoneEl.textContent = v; loadRides();
+  });
+
+  async function loadRides(){
+    try{
+      const res = await fetch('/api/bookings');
+      if(!res.ok) throw new Error('failed');
+      const all = await res.json();
+      // filter: match customer_phone or name contains phone token
+      const filtered = customerPhone ? all.filter(r => (r.customer_phone && r.customer_phone.includes(customerPhone)) || (r.name && r.name.includes(customerPhone))) : all;
+      renderRides(filtered.sort((a,b)=> (b.created||0)-(a.created||0)) );
+    }catch(e){ ridesEl.innerHTML = '<div class="muted">Failed to load rides</div>'; }
+  }
+
+  function renderRides(list){
+    ridesEl.innerHTML = '';
+    generateNotifications(list);
+    if(list.length===0){ ridesEl.innerHTML = '<div class="muted">No rides found for this phone.</div>'; return; }
+    list.forEach(r=>{
+      const d = document.createElement('div'); d.className='ride';
+      const meta = document.createElement('div'); meta.className='meta';
+      const title = document.createElement('h4'); title.textContent = r.name || 'Ride';
+      const when = document.createElement('div'); when.className='small muted'; when.textContent = new Date(r.created||Date.now()).toLocaleString();
+      const route = document.createElement('div'); route.textContent = (r.pickup||'') + ' → ' + (r.destination||'');
+      meta.appendChild(title); meta.appendChild(route); meta.appendChild(when);
+
+      const right = document.createElement('div');
+      right.style.textAlign='right';
+      const status = document.createElement('div'); status.style.marginBottom='8px'; status.innerHTML = '<span class="badge">'+(r.status||'')+'</span>';
+      const actions = document.createElement('div'); actions.className='actions';
+
+      const btnConfirm = document.createElement('button'); btnConfirm.className='btn primary small'; btnConfirm.textContent='Confirm';
+      const btnComplete = document.createElement('button'); btnComplete.className='btn ghost small'; btnComplete.textContent='Complete';
+      const btnReceipt = document.createElement('button'); btnReceipt.className='btn ghost small'; btnReceipt.textContent='Send Receipt';
+
+      btnConfirm.onclick = ()=>updateStatus(r.id,'confirmed');
+      btnComplete.onclick = ()=>updateStatus(r.id,'completed');
+      btnReceipt.onclick = ()=>sendReceipt(r.id);
+
+      actions.appendChild(btnConfirm); actions.appendChild(btnComplete); actions.appendChild(btnReceipt);
+
+      right.appendChild(status); right.appendChild(actions);
+
+      d.appendChild(meta); d.appendChild(right);
+      ridesEl.appendChild(d);
+    });
+  }
+
+  function generateNotifications(list){
+    notifEl.innerHTML='';
+    const notifs = [];
+    list.forEach(r=>{
+      if(r.pricing_sent_to_customer && !r.customer_pricing_confirmed){ notifs.push({id:'pricing-'+r.id, text:'Driver sent pricing for '+(r.name||'ride')}); }
+      if(r.pickup_completed){ notifs.push({id:'pickup-'+r.id, text:'Pickup completed for '+(r.name||'ride')}); }
+      if(r.dropoff_completed){ notifs.push({id:'dropoff-'+r.id, text:'Dropoff completed for '+(r.name||'ride')}); }
+    });
+    if(notifs.length>0){
+      notifs.forEach(n=>{
+        const el = document.createElement('div'); el.className='notif'; el.textContent = n.text; notifEl.appendChild(el);
+      });
+    }
+  }
+
+  async function updateStatus(bookingId, status){
+    try{
+      const r = await fetch('/api/update-status',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({booking_id:bookingId,status:status})});
+      if(!r.ok) throw new Error('failed');
+      showToast('Status updated: '+status);
+      await loadRides();
+    }catch(e){ showToast('Update failed'); }
+  }
+
+  async function sendReceipt(bookingId){
+    // no server receipt API — simulate success
+    showToast('Receipt sent (simulated)');
+  }
+
+  function showToast(msg){
+    const t = document.createElement('div'); t.textContent = msg; t.style.position='fixed'; t.style.bottom='20px'; t.style.left='50%'; t.style.transform='translateX(-50%)'; t.style.background='rgba(2,18,23,0.85)'; t.style.color='#fff'; t.style.padding='8px 12px'; t.style.borderRadius='8px'; document.body.appendChild(t);
+    setTimeout(()=>{ t.style.transition='opacity 300ms'; t.style.opacity='0'; setTimeout(()=>t.remove(),300); },1400);
+  }
+
+  // initial
+  if(!customerPhone){ custPhoneEl.textContent='(not set)'; }
+  loadRides();
+  setInterval(loadRides,5000);
+
+})();
+</script>
+</body>
+</html>

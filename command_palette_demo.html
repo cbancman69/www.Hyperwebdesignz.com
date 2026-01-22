@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Command Palette Demo</title>
+  <link rel="stylesheet" href="/command-palette.css">
+  <script defer src="/command-palette.js"></script>
+  <style>body{background:#071026;color:#dbeafe;font-family:Inter,system-ui;padding:28px}button.open-btn{background:linear-gradient(90deg,#8b5cf6,#7c3aed);border:none;color:white;padding:10px 14px;border-radius:8px}</style>
+</head>
+<body>
+  <h2>Command Palette — Demo</h2>
+  <p>Press <span class="cp-kbd">Ctrl/Cmd + K</span> or click the button to open.</p>
+  <button class="open-btn" data-palette="#demo-cp">Open Palette</button>
+
+  <!-- palette overlay -->
+  <div id="demo-cp" class="cp-overlay cp-hidden" style="display:flex;" aria-hidden="true">
+    <div class="cp-dialog cp-open" role="dialog" aria-modal="true">
+      <div class="cp-input">
+        <input type="search" placeholder="Search commands..." aria-label="Search commands">
+      </div>
+      <div class="cp-list">
+        <div class="cp-group-heading">File</div>
+        <div class="cp-item" data-action="new" data-label="New File"><div class="label">New File</div><div class="cp-shortcut">Ctrl+N</div></div>
+        <div class="cp-item" data-action="open" data-label="Open File"><div class="label">Open File…</div></div>
+        <div class="cp-sep"></div>
+        <div class="cp-group-heading">Edit</div>
+        <div class="cp-item" data-action="undo" data-label="Undo"><div class="label">Undo</div><div class="cp-shortcut">Ctrl+Z</div></div>
+        <div class="cp-item" data-action="redo" data-label="Redo"><div class="label">Redo</div><div class="cp-shortcut">Ctrl+Y</div></div>
+        <div class="cp-sep"></div>
+        <div class="cp-group-heading">View</div>
+        <div class="cp-item" data-action="toggleSidebar" data-label="Toggle Sidebar"><div class="label">Toggle Sidebar</div></div>
+        <div class="cp-item" data-action="themeLight" data-label="Theme: Light"><div class="label">Theme: Light</div></div>
+        <div class="cp-item" data-action="themeDark" data-label="Theme: Dark"><div class="label">Theme: Dark</div></div>
+        <div class="cp-empty" style="display:none">No results</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // listen for command selection
+    document.getElementById('demo-cp').addEventListener('command:select', (e)=>{
+      const {action,label} = e.detail
+      alert('Selected: ' + label + ' (' + action + ')')
+    })
+    // show by default attribute fix for demo
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const el = document.getElementById('demo-cp')
+      if(el){ el.classList.add('cp-hidden') }
+    })
+  </script>
+</body>
+</html>

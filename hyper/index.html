@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Hyper Web Designz — Portfolio</title>
+  <link rel="stylesheet" href="/hyper/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="brand">Hyper Web Designz</div>
+      <nav class="nav"><a href="#work">Work</a><a href="#services">Services</a><a href="#contact">Contact</a></nav>
+    </div>
+  </header>
+
+  <main class="container hero">
+    <h1>Design-led websites that drive results</h1>
+    <p class="lead">UX, visual design and fast builds for startups and small businesses.</p>
+    <a class="btn" href="#contact">Start a Project</a>
+
+    <section id="work" class="grid">
+      <article class="card"><h3>Project Alpha</h3><p>Branding and marketing site.</p></article>
+      <article class="card"><h3>Project Beta</h3><p>E‑commerce redesign.</p></article>
+      <article class="card"><h3>Project Gamma</h3><p>Landing pages and funnels.</p></article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© <span id="year"></span> Hyper Web Designz — <a href="mailto:hello@hyperwebdesignz.example">hello@hyperwebdesignz.example</a></div>
+  </footer>
+
+  <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+</body>
+</html>

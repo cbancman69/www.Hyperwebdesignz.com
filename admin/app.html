@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin — QR Generator</title>
+  <link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<body class="bg">
+  <main style="padding:28px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <h2 style="color:var(--accent)">Admin — QR Generator</h2>
+      <div>
+        <button id="logout" class="btn">Logout</button>
+      </div>
+    </div>
+
+    <section style="margin-top:18px;">
+      <label>TTL (hours): <input id="ttl" type="number" value="24" style="width:80px"/></label>
+      <button id="generate" class="btn">Generate QR</button>
+    </section>
+
+    <section id="result" style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap"></section>
+    
+    <section id="testimonialsEditor" style="margin-top:28px;">
+      <h3>Testimonials Editor</h3>
+      <p class="muted">Edit the testimonials JSON. Save will POST to <code>/admin/testimonials</code>.</p>
+      <div style="display:flex;gap:12px;flex-direction:column;max-width:900px;">
+        <textarea id="testArea" style="min-height:220px;background:transparent;color:#cfe;border:1px solid rgba(0,212,255,0.04);padding:12px;border-radius:8px;font-family:monospace;font-size:0.95rem"></textarea>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button id="loadTests" class="btn">Reload</button>
+          <button id="saveTests" class="btn">Save</button>
+          <div id="tmsg" style="color:lightgreen;margin-left:8px"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById('generate').addEventListener('click', async ()=>{
+      const hours = Number(document.getElementById('ttl').value || 24);
+      try{
+        const res = await fetch('/admin/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ttlMs: hours*3600*1000})});
+        if(!res.ok) throw new Error('failed');
+        const json = await res.json();
+        const container = document.getElementById('result');
+        const node = document.createElement('div');
+        node.style.background='rgba(0,0,0,0.35)';node.style.padding='12px';node.style.borderRadius='8px';node.style.border='1px solid rgba(0,212,255,0.04)';
+        node.innerHTML = `<div style="max-width:220px"><img src="${json.qr}" alt="QR" style="width:180px;height:180px;border-radius:8px"/><p><a href="${json.url}" target="_blank">Open link</a></p><p>expires: ${new Date(json.expires).toLocaleString()}</p></div>`;
+        container.prepend(node);
+      }catch(err){alert('Generate failed');}
+    });
+
+    document.getElementById('logout').addEventListener('click', async ()=>{
+      await fetch('/admin/logout',{method:'POST'});
+      window.location.href = '/admin';
+    });
+
+    // Testimonials editor
+    async function loadTestimonials(){
+      try{
+        const res = await fetch('/api/testimonials');
+        if(!res.ok) throw new Error('fetch');
+        const json = await res.json();
+        document.getElementById('testArea').value = JSON.stringify(json, null, 2);
+        document.getElementById('tmsg').textContent = '';
+      }catch(e){ document.getElementById('tmsg').textContent = 'Failed to load'; document.getElementById('tmsg').style.color='salmon'; }
+    }
+
+    document.getElementById('loadTests').addEventListener('click', loadTestimonials);
+    document.getElementById('saveTests').addEventListener('click', async ()=>{
+      const area = document.getElementById('testArea');
+      const msg = document.getElementById('tmsg');
+      try{
+        const parsed = JSON.parse(area.value);
+        const res = await fetch('/admin/testimonials',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(parsed)});
+        if(!res.ok) throw new Error('save failed');
+        msg.style.color='lightgreen'; msg.textContent = 'Saved.';
+      }catch(err){ msg.style.color='salmon'; msg.textContent = 'Save failed: '+(err.message||err); }
+    });
+
+    // load on start
+    loadTestimonials();
+  </script>
+</body>
+</html>

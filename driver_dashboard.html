@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Driver Dashboard — Ride With Ree</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg-from:#A8E0E8;--bg-via:#B0E8F0;--bg-to:#C0F0F8;--accent:#a855f7}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,var(--bg-from),var(--bg-via),var(--bg-to));color:#062324}
+    .wrap{min-height:100vh;padding:28px;position:relative}
+    .panel{max-width:1100px;margin:0 auto}
+    .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+    .title{font-size:28px;font-weight:800;color:#062234}
+    .stats{display:flex;gap:12px;margin-bottom:18px}
+    .stat{background:rgba(255,255,255,0.9);padding:12px;border-radius:10px;min-width:110px;text-align:center;box-shadow:0 10px 30px rgba(2,18,23,0.04)}
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:18px}
+    .requests{background:#fff;border-radius:12px;padding:12px}
+    .request{border-radius:8px;padding:10px;border:1px solid #eef2f6;margin-bottom:10px}
+    .btn{padding:8px 10px;border-radius:8px;border:0;cursor:pointer}
+    .btn.confirm{background:linear-gradient(90deg,#7ee787,#2fb85c);color:#063}
+    .btn.deny{background:#ffd7d7;color:#7b1a1a}
+    .btn.complete{background:#d5f0ff;color:#03506f}
+    .map{background:linear-gradient(180deg,#eef6ff,#fff);border-radius:12px;padding:12px;min-height:360px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .muted{color:#556}
+    .access{max-width:480px;margin:60px auto;text-align:center}
+    .backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center}
+    .popup{background:#0f1d32;padding:18px;border-radius:12px;color:#fff;width:92%;max-width:380px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="panel" id="panel">
+      <!-- content rendered by JS -->
+    </div>
+  </div>
+
+<script>
+(async function(){
+  const panel = document.getElementById('panel');
+
+  // Determine authorization: use ?driver=true to simulate an authorized driver
+  const params = new URLSearchParams(window.location.search);
+  const isAuthorized = params.get('driver') === 'true';
+
+  // If not authorized, show access prompt
+  if(!isAuthorized){
+    panel.innerHTML = `
+      <div class="access">
+        <h2 style="font-size:22px;color:#062234;margin-bottom:8px">Driver Access Required</h2>
+        <p class="muted">You must sign in as a driver to access this dashboard.</p>
+        <div style="margin-top:18px;display:flex;gap:8px;justify-content:center">
+          <button onclick="window.location.href='/?showLogin=true'" class="btn" style="background:linear-gradient(90deg,#7b2ce0,#a855f7);color:#fff">Sign In</button>
+          <button onclick="window.location.href='/'" class="btn" style="background:#fff;border:1px solid #eee">Back to Home</button>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  // Authorized view
+  panel.innerHTML = `
+    <div class="header">
+      <div>
+        <div class="title">Driver Dashboard</div>
+        <div class="muted">Welcome, Robyn</div>
+      </div>
+      <div>
+        <button id="logout" class="btn" style="background:#fff">Logout</button>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="muted">Total Requests</div><div id="stat-total" style="font-weight:800">0</div></div>
+      <div class="stat"><div class="muted">Pending</div><div id="stat-pending" style="font-weight:800;color:#c96">0</div></div>
+      <div class="stat"><div class="muted">Confirmed</div><div id="stat-confirmed" style="font-weight:800;color:#1a9">0</div></div>
+      <div class="stat"><div class="muted">Completed</div><div id="stat-completed" style="font-weight:800">0</div></div>
+    </div>
+
+    <div class="grid">
+      <div>
+        <div class="requests" id="requests"></div>
+      </div>
+      <aside class="map" id="mapbox">
+        <div id="map-text">Waiting for driver location...</div>
+        <div style="height:12px"></div>
+        <div class="muted">Use a modern browser that supports geolocation</div>
+      </aside>
+    </div>
+  `;
+
+  const requestsEl = document.getElementById('requests');
+  const mapText = document.getElementById('map-text');
+
+  // Watch driver location
+  let driverLocation = [39.0997, -94.5786];
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(pos=>{
+      driverLocation = [pos.coords.latitude, pos.coords.longitude];
+      mapText.textContent = 'Driver at: ' + driverLocation[0].toFixed(5) + ', ' + driverLocation[1].toFixed(5);
+    }, err=>{
+      mapText.textContent = 'Geolocation not available or denied. Using default location.';
+    });
+
+    const id = navigator.geolocation.watchPosition(pos=>{
+      driverLocation = [pos.coords.latitude, pos.coords.longitude];
+      mapText.textContent = 'Driver at: ' + driverLocation[0].toFixed(5) + ', ' + driverLocation[1].toFixed(5);
+    }, err=>{}, {enableHighAccuracy:true,maximumAge:3000,timeout:5000});
+  }
+
+  // Helper: fetch bookings
+  async function loadBookings(){
+    try{
+      const r = await fetch('/api/bookings');
+      if(!r.ok) throw new Error('failed');
+      const data = await r.json();
+      renderBookings(data || []);
+    }catch(e){
+      requestsEl.innerHTML = '<div class="muted">Failed to load bookings</div>';
+    }
+  }
+
+  function renderBookings(list){
+    const total = list.length;
+    const pending = list.filter(x=> (x.status||'').toLowerCase()==='requested' || (x.status||'').toLowerCase()==='pending').length;
+    const confirmed = list.filter(x=> (x.status||'').toLowerCase()==='confirmed').length;
+    const completed = list.filter(x=> (x.status||'').toLowerCase()==='completed').length;
+    document.getElementById('stat-total').textContent = total;
+    document.getElementById('stat-pending').textContent = pending;
+    document.getElementById('stat-confirmed').textContent = confirmed;
+    document.getElementById('stat-completed').textContent = completed;
+
+    if(list.length===0){ requestsEl.innerHTML = '<div class="muted">No requests</div>'; return; }
+
+    requestsEl.innerHTML = '';
+    list.forEach(rq=>{
+      const d = document.createElement('div'); d.className='request';
+      d.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div><strong>${escapeHtml(rq.name||'Unknown')}</strong><div class="muted small">${escapeHtml(rq.pickup||'')} → ${escapeHtml(rq.destination||'')}</div></div>
+          <div style="text-align:right"><div class="muted small">${new Date(rq.created||Date.now()).toLocaleString()}</div><div style="font-weight:800">${escapeHtml(rq.status||'')}</div></div>
+        </div>
+        <div style="margin-top:8px;display:flex;gap:8px">
+          <button class="btn confirm">Confirm</button>
+          <button class="btn complete">Complete</button>
+          <button class="btn deny">Deny</button>
+        </div>
+      `;
+
+      const [btnConfirm, btnComplete, btnDeny] = d.querySelectorAll('button');
+      btnConfirm.onclick = ()=>updateStatus(rq.id,'confirmed');
+      btnComplete.onclick = ()=>updateStatus(rq.id,'completed');
+      btnDeny.onclick = ()=>updateStatus(rq.id,'denied');
+
+      requestsEl.appendChild(d);
+    });
+  }
+
+  // update status via API
+  async function updateStatus(bookingId, status){
+    try{
+      const resp = await fetch('/api/update-status', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({booking_id:bookingId,status:status})});
+      if(!resp.ok) throw new Error('failed');
+      await loadBookings();
+      showToast('Status updated: ' + status);
+    }catch(e){ showToast('Failed to update'); }
+  }
+
+  function showToast(msg){
+    const t = document.createElement('div'); t.textContent = msg; t.style.position='fixed'; t.style.bottom='20px'; t.style.left='50%'; t.style.transform='translateX(-50%)'; t.style.background='rgba(2,18,23,0.85)'; t.style.color='#fff'; t.style.padding='8px 12px'; t.style.borderRadius='8px'; document.body.appendChild(t);
+    setTimeout(()=>{ t.style.transition='opacity 300ms'; t.style.opacity='0'; setTimeout(()=>t.remove(),300); },1400);
+  }
+
+  function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+  // initial load and interval
+  await loadBookings();
+  setInterval(loadBookings,5000);
+
+  // logout button (simulated)
+  document.getElementById('logout').onclick = ()=>{ window.location.href = '/'; };
+
+})();
+</script>
+</body>
+</html>

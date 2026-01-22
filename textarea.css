@@ -1,0 +1,15 @@
+/* Textarea styles matching the original component's utility classes */
+:root{--ta-border:rgba(255,255,255,0.06);--ta-bg:transparent;--ta-fg:#e6eef8;--ta-placeholder:#94a3b8;--ta-focus:rgba(139,92,246,0.18)}
+.textarea-root{width:100%}
+.textarea{width:100%;min-height:60px;max-width:100%;resize:vertical;padding:10px 12px;border-radius:8px;border:1px solid var(--ta-border);background:var(--ta-bg);color:var(--ta-fg);font-size:1rem;line-height:1.4;box-shadow:0 6px 18px rgba(2,6,23,0.35)}
+.textarea::placeholder{color:var(--ta-placeholder)}
+.textarea:focus{outline:none;box-shadow:0 8px 28px rgba(2,6,23,0.45);border-color:transparent;box-shadow:0 0 0 4px var(--ta-focus)}
+.textarea:disabled{opacity:0.6;cursor:not-allowed}
+
+/* responsive smaller text on md and up */
+@media (min-width:768px){
+  .textarea{font-size:0.95rem}
+}
+
+.ta-label{display:block;margin-bottom:8px;color:#cbd5e1;font-weight:600}
+.ta-help{display:block;margin-top:8px;color:var(--ta-placeholder);font-size:0.9rem}

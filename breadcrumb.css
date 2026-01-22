@@ -1,0 +1,18 @@
+:root{--bc-fg:#cbd5e1;--bc-link:#93c5fd;--bc-active:#e6eef8;--bc-muted:rgba(255,255,255,0.06);--bc-sep:#94a3b8}
+nav.breadcrumb{display:block}
+ol.breadcrumb-list{display:flex;flex-wrap:wrap;gap:8px;align-items:center;list-style:none;padding:0;margin:0;font-size:0.95rem;color:var(--bc-fg)}
+li.breadcrumb-item{display:inline-flex;align-items:center;gap:8px}
+a.breadcrumb-link{color:var(--bc-link);text-decoration:none;transition:color 120ms}
+a.breadcrumb-link:hover{color:#c7e2ff}
+span.breadcrumb-current{color:var(--bc-active);font-weight:600}
+span.breadcrumb-sep{color:var(--bc-sep);display:inline-flex;align-items:center}
+.breadcrumb-ellipsis{width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;border-radius:6px;background:transparent;color:var(--bc-fg);cursor:pointer}
+.breadcrumb-ellipsis:focus{outline:2px solid rgba(147,197,253,0.16);outline-offset:2px}
+
+/* compact mode helper: hidden items become .bc-collapsed placeholder */
+.bc-collapsed{display:inline-flex;align-items:center}
+.bc-collapsed .hidden-item{display:none}
+.bc-expanded .hidden-item{display:inline-flex}
+
+/* demo spacing */
+.demo{padding:18px;background:transparent;border-radius:8px}

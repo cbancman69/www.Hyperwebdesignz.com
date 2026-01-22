@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Driver Live Map — Ride With Ree</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg-from:#0a1628;--bg-via:#0f1d32;--bg-to:#1a2744;--accent:#a855f7}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,var(--bg-from),var(--bg-via),var(--bg-to));color:#e6eef0}
+    .wrap{min-height:100vh;padding:28px;position:relative}
+    .container{max-width:1100px;margin:0 auto}
+    .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+    .title{font-size:24px;font-weight:800;color:#fff}
+    .muted{color:#a9b6c0}
+    .grid{display:grid;grid-template-columns:1fr 420px;gap:18px}
+    .panel{background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02));padding:12px;border-radius:12px}
+    .map{min-height:420px;border-radius:8px;background:linear-gradient(180deg,#081226,#0f1d32);display:flex;align-items:center;justify-content:center;flex-direction:column}
+    .ride-card{padding:10px;border-radius:8px;background:rgba(255,255,255,0.02);margin-bottom:10px}
+    .btn{padding:8px 10px;border-radius:8px;border:0;cursor:pointer}
+    .nav-btn{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#cfe;padding:8px 12px;border-radius:10px}
+    .badge{background:var(--accent);color:#fff;padding:4px 8px;border-radius:999px;font-weight:700}
+    .glow{position:absolute;border-radius:50%;filter:blur(60px);opacity:0.35}
+    .g1{width:420px;height:420px;left:3%;top:6%;background:radial-gradient(circle,#c7a0ff33,#9b00ff11)}
+    .g2{width:320px;height:320px;right:6%;bottom:8%;background:radial-gradient(circle,#a855f733,#7b2ce022)}
+    @media (max-width:980px){.grid{grid-template-columns:1fr}.map{min-height:300px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="glow g1"></div>
+    <div class="glow g2"></div>
+
+    <div class="container">
+      <div class="header">
+        <div>
+          <div class="title">Live Map</div>
+          <div class="muted">Track your location and upcoming confirmed rides</div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button class="nav-btn" onclick="window.location.href='/driver_dashboard.html?driver=true'">Back to Dashboard</button>
+          <button class="nav-btn" onclick="window.location.href='/'">Home</button>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="panel map" id="map">
+          <div id="map-status">Initializing map...</div>
+          <div id="coords" style="margin-top:12px;color:#bcd"></div>
+        </div>
+
+        <aside>
+          <div class="panel" style="margin-bottom:12px">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div><strong>Next Pickups</strong></div>
+              <div class="muted" id="counts">0 confirmed</div>
+            </div>
+          </div>
+
+          <div class="panel" id="list"></div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+<script>
+(function(){
+  // require ?driver=true to view, otherwise redirect to Home (simulates access control)
+  const params = new URLSearchParams(window.location.search);
+  if(params.get('driver') !== 'true'){
+    window.location.href = '/';
+    return;
+  }
+
+  const mapStatus = document.getElementById('map-status');
+  const coordsEl = document.getElementById('coords');
+  const listEl = document.getElementById('list');
+  const countsEl = document.getElementById('counts');
+
+  let driverLocation = [39.0997, -94.5786];
+
+  function renderMap(){
+    mapStatus.textContent = 'Driver at: ' + driverLocation[0].toFixed(5) + ', ' + driverLocation[1].toFixed(5);
+    coordsEl.textContent = 'lat ' + driverLocation[0].toFixed(5) + ' • lng ' + driverLocation[1].toFixed(5);
+  }
+
+  // watchPosition for real-time updates
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(pos=>{
+      driverLocation = [pos.coords.latitude, pos.coords.longitude];
+      renderMap();
+    }, err=>{ renderMap(); });
+
+    navigator.geolocation.watchPosition(pos=>{
+      driverLocation = [pos.coords.latitude, pos.coords.longitude];
+      renderMap();
+    }, err=>{}, {enableHighAccuracy:true,maximumAge:3000,timeout:5000});
+  } else {
+    renderMap();
+  }
+
+  async function loadConfirmed(){
+    try{
+      const r = await fetch('/api/bookings');
+      const data = await r.json();
+      const confirmed = (data || []).filter(b => (b.status||'').toLowerCase() === 'confirmed');
+      renderList(confirmed);
+    }catch(e){ listEl.innerHTML = '<div class="muted">Failed to load rides</div>'; }
+  }
+
+  function renderList(arr){
+    countsEl.textContent = arr.length + ' confirmed';
+    if(arr.length===0){ listEl.innerHTML = '<div class="muted">No confirmed rides</div>'; return; }
+    listEl.innerHTML = '';
+    arr.slice(0,8).forEach(r=>{
+      const d = document.createElement('div'); d.className='ride-card';
+      d.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><div><strong>${escapeHtml(r.name||'Unknown')}</strong><div class='muted' style='font-size:13px'>${escapeHtml(r.pickup||'')} → ${escapeHtml(r.destination||'')}</div></div><div><span class='badge'>Confirmed</span></div></div>`;
+      listEl.appendChild(d);
+    });
+  }
+
+  function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
+
+  // initial load and polling
+  loadConfirmed();
+  setInterval(loadConfirmed, 8000);
+
+  renderMap();
+
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Context Menu Demo</title>
+  <link rel="stylesheet" href="/context-menu.css">
+  <style>body{padding:32px;background:#071126;color:#dbeafe}button{padding:10px 14px;border-radius:8px;border:none;background:var(--accent);color:white}</style>
+  <script defer src="/context-menu.js"></script>
+</head>
+<body>
+  <h2 style="margin-bottom:12px">Context Menu — Demo</h2>
+  <p>Right-click or click the purple button to open the context menu. Try toggling checkbox and radio items.</p>
+
+  <button class="context-menu-trigger" data-menu="demo-menu">Open Menu</button>
+
+  <!-- main menu -->
+  <div id="demo-menu" class="cm-menu cm-hidden" role="menu" aria-hidden="true">
+    <div class="cm-group">
+      <div class="cm-item" data-action="new" role="menuitem"><span class="cm-icon">📄</span><span class="cm-label">New file</span><span class="cm-shortcut">Ctrl+N</span></div>
+      <div class="cm-item" data-action="open" role="menuitem"><span class="cm-icon">📂</span><span class="cm-label">Open…</span></div>
+      <div class="cm-item cm-submenu" data-submenu="submenu-edit" role="menuitem" data-submenu-trigger><span class="cm-icon">✏️</span><span class="cm-label">Edit</span><span style="margin-left:auto">▶</span></div>
+    </div>
+    <div class="cm-separator"></div>
+    <div class="cm-group">
+      <div class="cm-item" data-checkbox="true" aria-checked="false" role="menuitemcheckbox"><span class="cm-icon cm-check" style="visibility:hidden">✓</span><span class="cm-label">Show line numbers</span></div>
+      <div class="cm-item" data-radio-group="theme" aria-checked="true" role="menuitemradio"><span class="cm-icon"><span class="cm-radio-dot checked"></span></span><span class="cm-label">Theme: Light</span></div>
+      <div class="cm-item" data-radio-group="theme" aria-checked="false" role="menuitemradio"><span class="cm-icon"><span class="cm-radio-dot"></span></span><span class="cm-label">Theme: Dark</span></div>
+    </div>
+    <div class="cm-separator"></div>
+    <div class="cm-group">
+      <div class="cm-item" data-action="settings" role="menuitem"><span class="cm-icon">⚙️</span><span class="cm-label">Settings</span></div>
+      <div class="cm-item" data-action="help" role="menuitem"><span class="cm-icon">❓</span><span class="cm-label">Help</span></div>
+    </div>
+  </div>
+
+  <!-- submenu content -->
+  <div id="submenu-edit" class="cm-menu cm-hidden" role="menu" aria-hidden="true">
+    <div class="cm-group">
+      <div class="cm-item" data-action="undo" role="menuitem"><span class="cm-icon">↶</span><span class="cm-label">Undo</span></div>
+      <div class="cm-item" data-action="redo" role="menuitem"><span class="cm-icon">↷</span><span class="cm-label">Redo</span></div>
+      <div class="cm-item" data-action="copy" role="menuitem"><span class="cm-icon">📋</span><span class="cm-label">Copy</span></div>
+    </div>
+  </div>
+
+  <script>
+    // listen for actions dispatched by the menu
+    document.getElementById('demo-menu').addEventListener('context:action', (e)=>{
+      const {action} = e.detail
+      alert('Action: ' + action)
+    })
+    document.getElementById('submenu-edit').addEventListener('context:action', (e)=>{
+      const {action} = e.detail
+      alert('Sub Action: ' + action)
+    })
+  </script>
+</body>
+</html>

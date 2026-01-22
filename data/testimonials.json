@@ -1,0 +1,39 @@
+[
+  {
+    "quote": "They turned our vague concept into a high-converting landing page in under two weeks — outstanding work and communication.",
+    "name": "A. Reynolds",
+    "title": "Head of Marketing",
+    "company": "Acme Corp",
+    "logo": "/assets/company-acme.svg"
+  },
+  {
+    "quote": "Fast, reliable, and the design direction was exactly what we needed to relaunch our app product.",
+    "name": "S. Martinez",
+    "title": "Product Lead",
+    "company": "Base44",
+    "logo": "/assets/company-base44.svg"
+  }
+]
+[
+  {
+    "quote": "They turned our vague concept into a high-converting landing page in under two weeks — outstanding work and communication.",
+    "name": "A. Reynolds",
+    "title": "Head of Marketing",
+    "company": "Acme Corp",
+    "logo": "/assets/company-acme.svg"
+  },
+  {
+    "quote": "Fast, reliable, and the design direction was exactly what we needed to relaunch our app product.",
+    "name": "S. Martinez",
+    "title": "Product Lead",
+    "company": "Base44",
+    "logo": "/assets/company-base44.svg"
+  },
+  {
+    "quote": "They handled our checkout integration and improved conversion by 32% — highly recommended.",
+    "name": "J. Lee",
+    "title": "E‑commerce Manager",
+    "company": "ShopCo",
+    "logo": "/assets/company-shop.svg"
+  }
+]

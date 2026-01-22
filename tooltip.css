@@ -1,0 +1,9 @@
+:root{--tt-bg:#111827;--tt-fg:#f8fafc;--tt-accent:#8b5cf6;--tt-radius:8px}
+.tt{position:fixed;z-index:99999;display:inline-block;pointer-events:none;opacity:0;transform-origin:center;transition:200ms ease;will-change:transform,opacity}
+.tt.tt-open{opacity:1;pointer-events:auto}
+.tt .tt-content{background:var(--tt-bg);color:var(--tt-fg);padding:6px 10px;border-radius:var(--tt-radius);font-size:13px;box-shadow:0 8px 24px rgba(2,6,23,0.7);border:1px solid rgba(255,255,255,0.03)}
+.tt .tt-arrow{width:10px;height:10px;position:absolute;background:var(--tt-bg);transform:rotate(45deg);border-left:1px solid rgba(255,255,255,0.03);border-top:1px solid rgba(255,255,255,0.03)}
+
+/* simple fade/scale */
+.tt-open-anim{animation:tt-in 120ms ease-out}
+@keyframes tt-in{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:scale(1)}}

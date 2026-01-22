@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Select Demo</title>
+  <link rel="stylesheet" href="/select.css">
+  <script defer src="/select.js"></script>
+  <style>body{background:#071026;color:#dbeafe;font-family:Inter,system-ui;padding:28px}h1{margin-bottom:12px}button{border-radius:8px}</style>
+</head>
+<body>
+  <h1>Select — Demo</h1>
+
+  <div class="select-root demo" style="margin-bottom:18px">
+    <div class="select-trigger" data-select="#sel1" aria-controls="sel1">
+      <span class="select-value">Choose a city…</span>
+      <span class="select-icon">▾</span>
+    </div>
+    <div id="sel1" class="select-content" role="listbox">
+      <div class="select-group">
+        <div class="select-item" data-value="ny">New York<span class="check">✔</span></div>
+        <div class="select-item" data-value="sf">San Francisco<span class="check">✔</span></div>
+        <div class="select-item" data-value="la">Los Angeles<span class="check">✔</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="select-root demo">
+    <div class="select-trigger" data-select="#sel2" aria-controls="sel2">
+      <span class="select-value">Select theme</span>
+      <span class="select-icon">▾</span>
+    </div>
+    <div id="sel2" class="select-content" role="listbox">
+      <div class="select-label">Appearance</div>
+      <div class="select-group">
+        <div class="select-item" data-value="light">Light<span class="check">✔</span></div>
+        <div class="select-item" data-value="dark">Dark<span class="check">✔</span></div>
+        <div class="select-item" data-value="system">System<span class="check">✔</span></div>
+      </div>
+      <div class="select-sep"></div>
+      <div class="select-item" data-value="auto">Auto-detect<span class="check">✔</span></div>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.select-root').forEach(root=>{
+      root.addEventListener('select:change', (e)=>{
+        const {value,label} = e.detail
+        console.log('Selected', value, label)
+      })
+    })
+  </script>
+</body>
+</html>

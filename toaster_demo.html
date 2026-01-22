@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Toaster Demo</title>
+  <link rel="stylesheet" href="/toaster.css">
+  <script defer src="/toaster.js"></script>
+  <style>body{background:#071026;color:#dbeafe;font-family:Inter,system-ui;padding:28px}button{padding:10px 12px;border-radius:8px;border:none;margin-right:8px}</style>
+</head>
+<body>
+  <h1>Toaster — Demo</h1>
+  <div style="margin-bottom:16px">
+    <button id="info" style="background:#2563eb;color:white">Info</button>
+    <button id="success" style="background:#059669;color:white">Success</button>
+    <button id="error" style="background:#ef4444;color:white">Error</button>
+    <button id="action" style="background:linear-gradient(90deg,#8b5cf6,#7c3aed);color:white">With action</button>
+    <button id="clear" style="background:#334155;color:white">Clear</button>
+  </div>
+
+  <script>
+    document.getElementById('info').addEventListener('click', ()=>{
+      Toast.info({title:'Heads up', description:'This is an informational message', duration:4200})
+    })
+    document.getElementById('success').addEventListener('click', ()=>{
+      Toast.success({title:'Saved', description:'Your changes were saved successfully'})
+    })
+    document.getElementById('error').addEventListener('click', ()=>{
+      Toast.error({title:'Failed', description:'Something went wrong', duration:6000})
+    })
+    document.getElementById('action').addEventListener('click', ()=>{
+      Toast.show({title:'Upload complete', description:'Would you like to open the file?', actionText:'Open', action:()=>alert('Opening...')})
+    })
+    document.getElementById('clear').addEventListener('click', ()=>Toast.clearAll())
+  </script>
+</body>
+</html>

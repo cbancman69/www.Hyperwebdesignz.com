@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Textarea Demo</title>
+  <link rel="stylesheet" href="/textarea.css">
+  <style>body{background:#071026;color:#dbeafe;font-family:Inter,system-ui;padding:28px}h1{margin-bottom:12px}.demo{max-width:720px}</style>
+</head>
+<body>
+  <h1>Textarea — Demo</h1>
+
+  <div class="demo">
+    <label class="ta-label" for="ta1">Message</label>
+    <textarea id="ta1" class="textarea" placeholder="Write your message..."></textarea>
+    <span class="ta-help">Press Ctrl+Enter to submit (demo)</span>
+  </div>
+
+  <div style="height:18px"></div>
+
+  <div class="demo">
+    <label class="ta-label">Disabled</label>
+    <textarea class="textarea" disabled>Disabled value</textarea>
+  </div>
+
+  <script>
+    document.getElementById('ta1').addEventListener('keydown', (e)=>{
+      if(e.ctrlKey && e.key === 'Enter'){
+        alert('Submitted: ' + e.target.value)
+      }
+    })
+  </script>
+</body>
+</html>

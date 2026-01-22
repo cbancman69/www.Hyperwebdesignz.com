@@ -1,0 +1,16 @@
+.home-preview{margin-top:18px;padding:14px;border-radius:12px}
+.home-preview h3{color:var(--accent);margin:0 0 12px 0;font-size:1.1rem}
+.home-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.home-cards .card{padding:12px;border-radius:14px;background:
+  radial-gradient(circle at 14% 18%, rgba(75,225,255,0.06), rgba(255,255,255,0) 36%),
+  linear-gradient(180deg, rgba(0,36,44,0.55), rgba(1,10,14,0.45));border:1px solid rgba(0,212,255,0.08);box-shadow:0 18px 48px rgba(0,0,0,0.6), 0 0 18px rgba(0,212,255,0.12);overflow:hidden;position:relative;transition:transform .28s ease,box-shadow .28s ease}
+.home-cards .card:hover{transform: translateY(-12px) scale(1.02);box-shadow:0 28px 68px rgba(0,0,0,0.65), 0 0 40px rgba(0,212,255,0.12)}
+.home-cards .card-media img{height:140px;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,0.5);width:100%;object-fit:cover}
+.home-cards .card-body{padding-top:10px;color:#dff}
+.home-cards .card-body strong{display:block;color:var(--accent);font-size:1rem}
+.home-cards .card-body small{color:#9fdff7;opacity:0.95}
+.home-preview .btn{margin-top:8px}
+@media (max-width:600px){
+  .home-cards .card-media img{height:110px}
+}
+\n.hero-centered{margin:16px 0;text-align:center}\n.hero-nav{display:inline-flex;gap:10px}\n.badge{background:linear-gradient(90deg,#002a3a,#003b55);padding:6px 10px;border-radius:999px;color:#bfe;font-weight:600;border:1px solid rgba(0,212,255,0.04)}\n

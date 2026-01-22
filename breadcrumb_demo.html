@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Breadcrumb Demo</title>
+  <link rel="stylesheet" href="/breadcrumb.css">
+  <script defer src="/breadcrumb.js"></script>
+  <style>body{background:#071026;color:#dbeafe;font-family:Inter,system-ui;padding:28px}h1{margin-bottom:12px}a.breadcrumb-link{color:#93c5fd}</style>
+</head>
+<body>
+  <h1>Breadcrumb — Demo</h1>
+
+  <div class="demo">
+    <nav class="breadcrumb" aria-label="breadcrumb">
+      <ol class="breadcrumb-list">
+        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Home</a><span class="breadcrumb-sep">›</span></li>
+        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Docs</a><span class="breadcrumb-sep">›</span></li>
+        <li class="breadcrumb-item"><span class="breadcrumb-current">Installation</span></li>
+      </ol>
+    </nav>
+  </div>
+
+  <hr style="height:16px;border:none;background:transparent">
+
+  <div class="demo">
+    <nav class="breadcrumb" aria-label="breadcrumb" data-collapse="4">
+      <ol class="breadcrumb-list">
+        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Home</a><span class="breadcrumb-sep">›</span></li>
+        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Products</a><span class="breadcrumb-sep">›</span></li>
+        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Widgets</a><span class="breadcrumb-sep">›</span></li>
+        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Large</a><span class="breadcrumb-sep">›</span></li>
+        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Purple</a><span class="breadcrumb-sep">›</span></li>
+        <li class="breadcrumb-item"><span class="breadcrumb-current">Details</span></li>
+      </ol>
+    </nav>
+    <p style="margin-top:10px;color:#94a3b8">Click the ellipsis to expand/collapse the full path.</p>
+  </div>
+
+</body>
+</html>

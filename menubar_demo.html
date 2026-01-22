@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Menubar Demo</title>
+  <link rel="stylesheet" href="/menubar.css">
+  <script defer src="/menubar.js"></script>
+  <style>body{background:#071026;color:#dbeafe;font-family:Inter,system-ui;padding:24px}h1{margin-bottom:12px}</style>
+</head>
+<body>
+  <h1>Menubar — Demo</h1>
+  <div class="menubar" role="menubar" aria-label="Demo Menubar">
+    <button class="mb-trigger" data-menu="#menu-file" aria-expanded="false">File</button>
+    <button class="mb-trigger" data-menu="#menu-edit" aria-expanded="false">Edit</button>
+    <button class="mb-trigger" data-menu="#menu-view" aria-expanded="false">View</button>
+  </div>
+
+  <div id="menu-file" class="mb-menu mb-hidden" role="menu" aria-hidden="true">
+    <div class="mb-group">
+      <div class="mb-item" data-action="new"><span class="mb-icon">📄</span>New<span class="mb-shortcut">Ctrl+N</span></div>
+      <div class="mb-item" data-action="open"><span class="mb-icon">📂</span>Open…</div>
+      <div class="mb-item" data-action="save"><span class="mb-icon">💾</span>Save<span class="mb-shortcut">Ctrl+S</span></div>
+    </div>
+    <div class="mb-sep"></div>
+    <div class="mb-group">
+      <div class="mb-item" data-action="settings"><span class="mb-icon">⚙️</span>Settings</div>
+    </div>
+  </div>
+
+  <div id="menu-edit" class="mb-menu mb-hidden" role="menu" aria-hidden="true">
+    <div class="mb-group">
+      <div class="mb-item" data-action="undo"><span class="mb-icon">↶</span>Undo<span class="mb-shortcut">Ctrl+Z</span></div>
+      <div class="mb-item" data-action="redo"><span class="mb-icon">↷</span>Redo<span class="mb-shortcut">Ctrl+Y</span></div>
+    </div>
+    <div class="mb-sep"></div>
+    <div class="mb-group">
+      <div class="mb-item" data-checkbox data-action="toggleLineNumbers" aria-checked="false"><span class="mb-icon mb-check">✓</span>Show line numbers</div>
+      <div class="mb-item" data-radio-group="theme" data-action="themeLight" aria-checked="true"><span class="mb-icon"><span class="mb-radio checked"></span></span>Theme: Light</div>
+      <div class="mb-item" data-radio-group="theme" data-action="themeDark" aria-checked="false"><span class="mb-icon"><span class="mb-radio"></span></span>Theme: Dark</div>
+    </div>
+  </div>
+
+  <div id="menu-view" class="mb-menu mb-hidden" role="menu" aria-hidden="true">
+    <div class="mb-group">
+      <div class="mb-item" data-action="toggleSidebar"><span class="mb-icon">▤</span>Toggle Sidebar</div>
+      <div class="mb-item" data-action="zoomIn"><span class="mb-icon">🔍</span>Zoom In</div>
+    </div>
+  </div>
+
+  <script>
+    // listen for menu actions
+    document.querySelectorAll('.mb-menu').forEach(menu=>{
+      menu.addEventListener('menubar:action', (e)=>{
+        const {action} = e.detail
+        alert('Action: ' + action)
+      })
+    })
+  </script>
+</body>
+</html>

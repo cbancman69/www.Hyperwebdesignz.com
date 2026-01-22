@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Switch Demo</title>
+  <link rel="stylesheet" href="/switch.css">
+  <script defer src="/switch.js"></script>
+  <style>body{background:#071026;color:#dbeafe;font-family:Inter,system-ui;padding:28px}h1{margin-bottom:12px}.row{display:flex;gap:18px;align-items:center;margin-bottom:12px}</style>
+</head>
+<body>
+  <h1>Switch — Demo</h1>
+
+  <div class="row">
+    <label class="switch-root switch" tabindex="0">
+      <input class="switch-input" type="checkbox" />
+      <span class="switch-track"><span class="switch-thumb"></span></span>
+      <span class="switch-label">Notifications</span>
+    </label>
+
+    <label class="switch-root switch switch-small" tabindex="0">
+      <input class="switch-input" type="checkbox" checked />
+      <span class="switch-track"><span class="switch-thumb"></span></span>
+      <span class="switch-label">Auto</span>
+    </label>
+
+    <label class="switch-root switch" tabindex="0">
+      <input class="switch-input" type="checkbox" disabled />
+      <span class="switch-track"><span class="switch-thumb"></span></span>
+      <span class="switch-label">Disabled</span>
+    </label>
+  </div>
+
+  <script>
+    document.querySelectorAll('.switch-root').forEach(s=>{
+      s.addEventListener('switch:change', (e)=>{
+        console.log('Switch changed:', e.detail.checked)
+      })
+    })
+  </script>
+</body>
+</html>
