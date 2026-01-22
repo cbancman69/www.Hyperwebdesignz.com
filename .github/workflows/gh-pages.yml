@@ -19,6 +19,9 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Optional: provide a personal access token via repository secret
+          # named DEPLOY_TOKEN if your repository policies restrict GITHUB_TOKEN
+          access_token: ${{ secrets.DEPLOY_TOKEN }}
           publish_dir: ./public
           publish_branch: gh-pages
           allow_empty_commit: true
